@@ -1,0 +1,30 @@
+body {
+    padding: 30px;
+}
+main {
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background: lightblue;
+}
+#wrapper {
+    display: flex;
+    flex-direction: row;
+}
+section {
+    background: lightgreen;
+    width: 75%;
+}
+article {
+    background: white;
+    margin: 0 0 1rem 0;
+}
+aside {
+    background: pink;
+    width: 25%;
+}
+header, article, section, .module {
+    padding: 1rem;
+}
+
