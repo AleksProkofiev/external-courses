@@ -44,7 +44,7 @@ function isNumeric(value) {
   return !isNaN(parseFloat(value)) && isFinite(value);
 };
 
-var Calculator = Calc();
+var Calculator = new Calc();
 
 module.exports = Calculator;
 
