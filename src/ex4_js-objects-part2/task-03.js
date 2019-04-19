@@ -1,5 +1,5 @@
 function removeFirstAndLastSpaces(string) {
-    var newString = string.trim();
+    var newString = string.slice(1, -1);
     return newString;
 }
 
