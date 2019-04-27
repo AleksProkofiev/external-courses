@@ -1,6 +1,5 @@
-window.onload = setElementDimensions();
+setElementDimensions();
 window.addEventListener("resize", setElementDimensions);
-
 function setElementDimensions() {
   var width = document.documentElement.clientWidth;
   var height = document.documentElement.clientHeight;
