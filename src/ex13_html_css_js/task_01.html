@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task_01</title>
+    <link type="text/css" rel="stylesheet" href="task_01.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <main>
+        <div id="todo_list">
+            <header>ToDO List</header>
+            <!--/*........................tasks......................*/-->
+            <section id="todo_list__items">
+                <ul id="todo_list__items__ul"></ul>
+            </section>
+            <!--/*........................add task......................*/-->
+            <section class="todo_list__add">
+                <label for="todo_list__add__input_item"></label>
+                <input type="text" class="todo_list__add__input_item" id="todo_list__add__input_item" name="todo_list__add__input_item" placeholder="ToDo text"/>
+                <input type="button" id="todo_list__add_button" value="Add"/>
+            </section>
+            <!--/*........................confirm window......................*/-->
+            <div id="todo_list__confirm_window" class="confirm">
+                <p class="confirm_header">Are you sure?</p>
+                <p class="confirm_text"></p>
+                <div class="confirm_buttons">
+                    <div id="confirmAdd_button_yes">Yes</div>
+                    <div id="confirmAdd_button_no" >No</div>
+                </div>
+            </div>
+        </div>
+    </main>
+<script type="text/javascript" src="task_01.js"></script>
+</body>
+</html>
