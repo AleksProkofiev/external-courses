@@ -1,30 +1,17 @@
-var inputItem = document.querySelector("#todo_list__add__input_item");
+var inputItem = document.querySelector(".add_task__input");
 inputItem.addEventListener("focus", setBorderColor);
-var buttonAddTask = document.querySelector("#todo_list__add_button");
-buttonAddTask.addEventListener("click", showConfirmWindow);
-var confirmWindow = document.querySelector("#todo_list__confirm_window");
+var buttonAddTask = document.querySelector(".add_task__button");
+buttonAddTask.addEventListener("click", prepareForAdd);
+var confirmWindow = document.querySelector(".confirm_window");
 confirmWindow.addEventListener("click", checkConfirm);
-var list = document.querySelector("#todo_list__items__ul");
-list.addEventListener("click", removeTask);
+var list = document.querySelector(".tasks__ul");
+var listLi;
+var e;
 function setBorderColor() {
     inputItem.style.borderColor = "#A0A1A1";
 }
 function showConfirmWindow() {
-  if (inputItem.value !== "") {
-     confirmWindow.children[1].innerHTML =
-          "Are you sure you want to add new ToDo item: {" + inputItem.value + "}?";
      confirmWindow.classList.toggle("show");
-  } else {
-     inputItem.style.borderColor = "red"
-  }
-}
-function checkConfirm() {
-  if (event.target.id === "confirmAdd_button_yes") {
-      createNewTask();
-      confirmWindow.classList.toggle("show");
-  } else if (event.target.id === "confirmAdd_button_no") {
-        confirmWindow.classList.toggle("show");
-  }
 }
 function createNewTask() {
     var newTask = document.createElement("li");
@@ -34,10 +21,54 @@ function createNewTask() {
         + "<i class='fa fa-times' aria-hidden='true'></i>";
     list.appendChild(newTask);
     inputItem.value = "";
+    listLi = Array.from(document.getElementsByTagName("li"));
+    listLi.forEach(function (elem) {
+    elem.addEventListener("click", prepareForRemoval);
+});
 }
-function removeTask(event) {
+function removeTask() {
+  listLi.forEach(function (elem) {
+    if (elem.classList.contains("delete")) {
+      elem.remove();
+    }
+  });
+}
+function checkConfirm(event) {
+  if (event.target.classList.contains("button_ok")) {
+    if (confirmWindow.classList.contains("confirm_delete")) {
+      removeTask();
+      showConfirmWindow();
+    } else {
+      createNewTask();
+      showConfirmWindow();
+    }
+  } else if (event.target.classList.contains("button_no")) {
+    if (confirmWindow.classList.contains("confirm_delete")) {
+      showConfirmWindow();
+      e.classList.remove("delete");
+    } else {
+      showConfirmWindow();
+    }
+  }
+}
+function prepareForAdd() {
+  if (inputItem.value !== "") {
+    confirmWindow.children[1].innerHTML =
+      "Are you sure you want to add ToDo item: {" + inputItem.value + "}?";
+    confirmWindow.classList.remove("confirm_delete");
+    confirmWindow.classList.add("confirm_add");
+    showConfirmWindow();
+  } else {
+    inputItem.style.borderColor = "red"
+  }
+}
+function prepareForRemoval(event) {
   if (event.target.tagName === "I") {
-      var li = event.target.parentNode;
-      li.remove();
+    e = this;
+    this.classList.toggle("delete");
+    confirmWindow.classList.add("confirm_delete");
+    confirmWindow.children[1].innerHTML =
+      "Are you sure you want to delete ToDo item: {" + this.children[0].children[0].innerText + "}?";
+    showConfirmWindow();
   }
 }
