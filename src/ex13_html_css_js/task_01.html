@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task_01</title>
+    <link type="text/css" rel="stylesheet" href="task_01.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+<body>
+    <main class="wrapper">
+        <div class="todo_list">
+            <header class="header">ToDO List</header>
+            <!--........................tasks......................-->
+            <section class="tasks">
+                <ul class="tasks__ul"></ul>
+            </section>
+            <!--........................add task......................-->
+            <section class="add_task">
+                <label for="add_task__input"></label>
+                <input type="text" class="add_task__input" id="add_task__input" name="add_task__input" placeholder="ToDo text"/>
+                <input type="button" class="add_task__button" value="Add"/>
+            </section>
+            <!--........................confirm window......................-->
+            <div class="confirm_window">
+                <p class="confirm_window__header">Are you sure?</p>
+                <p class="confirm_window__question"></p>
+                <div class="confirm_window__buttons">
+                    <div class="button_ok">Yes</div>
+                    <div class="button_no">No</div>
+                </div>
+            </div>
+        </div>
+    </main>
+<script type="text/javascript" src="task_01.js"></script>
+</body>
+</html>

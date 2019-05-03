@@ -1,0 +1,242 @@
+* {
+    vertical-align: baseline;
+    font-size: 100%;
+    border: 0 none;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Toms Handwritten", Helvetica, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Toms Handwritten';
+    src: url('assets/fonts/TomsHandwritten.eot');
+    src: local('assets/fonts/Toms Handwritten'), local('TomsHandwritten'),
+    url('assets/fonts/TomsHandwritten.eot?#iefix') format('embedded-opentype'),
+    url('assets/fonts/TomsHandwritten.woff') format('woff'),
+    url('assets/fonts/TomsHandwritten.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/*........................wrapper......................*/
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #EEF3FA;
+}
+/*........................ToDo list......................*/
+.todo_list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    width: 400px;
+}
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #515151;
+    font-size: 50px;
+}
+/*........................tasks......................*/
+.tasks {
+    width: 100%;
+    height: 360px;
+    border: 3px dashed black;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    overflow-y: scroll;
+    background:
+            repeating-linear-gradient(135deg,
+            #DCE0E6, #DCE0E6 20px, #E5E9EF 0, #E5E9EF 40px);
+}
+
+/*scrollbar*/
+.tasks::-webkit-scrollbar {
+    width: 20px;
+}
+.tasks::-webkit-scrollbar-button {
+    box-shadow: 0 0 0 2px #B7B8BA;
+    height: 22px;
+}
+.tasks::-webkit-scrollbar-track {
+    position: relative;
+    background: repeating-linear-gradient(135deg,
+    #DCE0E6 0, #DCE0E6 20px, #E5E9EF 0, #E5E9EF 40px);
+    box-shadow: 0 0 0 2px #B7B8BA;
+}
+.tasks::-webkit-scrollbar-thumb {
+    background: #515151;
+    border: 1px solid #7A7B7C;
+}
+/* button Up */
+.tasks::-webkit-scrollbar-button:single-button:vertical:decrement {
+    background-image: url("assets/img/icon-arrow-top.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: center;
+}
+/* button Down */
+.tasks::-webkit-scrollbar-button:single-button:vertical:increment {
+    background-image: url("assets/img/icon-arrow-bottom.png");
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-position: center;
+}
+
+.tasks li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px 0 60px;
+    color: #515151;
+    font-size: 16px;
+    z-index: 1;
+}
+.tasks li:hover, .tasks label:hover{
+    cursor: pointer;
+}
+.tasks label {
+    display: flex;
+    position: relative;
+    font-size: 22px;
+}
+
+/*style for checkbox*/
+input[type="checkbox"] {
+    display: none;
+}
+.label-check__new-input {
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #515151;
+    border-radius: 4px;
+}
+input[type="checkbox"]:checked + .label-check__new-input {
+    background: url("assets/img/fivth-list-icon.png") no-repeat center;
+    background-size: 12px 12px;
+    animation: animation-checkbox 0.4s ease-in-out;
+}
+@keyframes animation-checkbox {
+    0% {
+        transform: scale(0.8);
+    }
+    70% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+.fa-times {
+    visibility: hidden;
+    font-size: 14px;
+    padding-top: 4px;
+}
+.tasks__ul li:hover i {
+    visibility: visible;
+}
+/*........................add task......................*/
+.add_task {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.add_task__input, .add_task__button {
+    background: white;
+    font-size: 20px;
+    color: #515151;
+}
+input {
+    display: block;
+}
+.add_task__input {
+    flex-grow: 3;
+    margin-right: 5px;
+    border: 2px solid #A0A1A1;
+    border-radius: 3px ;
+    padding-left: 5px;
+}
+.red {
+     border: 2px solid red;
+}
+.add_task__button {
+    flex-grow: 2;
+    border: 2px solid #DEDEDF;
+    border-radius: 3px ;
+    background: white;
+    color: #515151;
+}
+.add_task__button:hover {
+    cursor: pointer;
+}
+/*........................confirm window......................*/
+.confirm_window {
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 370px;
+    height: 150px;
+    border: 2px solid #686868;
+    border-radius: 5px;
+    background: white;
+}
+.show {
+    visibility: visible;
+
+}
+
+.confirm_add {
+    bottom: 15px;
+    left: 15px;
+}
+
+.confirm_delete {
+    top: 50px;
+    left: 15px;
+}
+.confirm_window__header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-bottom: 2px solid #B3B3B3;
+    padding: 2px;
+    font-size: 25px;
+    color: #515151;
+}
+.confirm_window__question {
+    text-align: center;
+    font-size: 18px;
+    color: #515151;
+    }
+.confirm_window__buttons {
+    display: flex;
+}
+.confirm_window__buttons div {
+    border: 2px solid #E5E5E5;
+    border-radius: 5px;
+    padding: 5px 40px;
+    margin: 15px 5px;
+    color: #727272;
+}
+.confirm_window__buttons div:hover {
+    border-color: #727272;
+    cursor: pointer;
+}
