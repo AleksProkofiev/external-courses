@@ -1,6 +1,6 @@
 function methodCopyReduce(array, callback, initialValue) {
   var flag, previousValue;
-  if (initialValue === undefined) {
+  if (!initialValue) {
     flag = 1;
     previousValue = array[0];
   } else {

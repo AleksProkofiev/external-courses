@@ -1,7 +1,7 @@
 function methodCopySlice(array, begin, end) {
 
-    if ( Array.isArray(array) && (begin === undefined || isNumeric(begin))
-        && (end === undefined || isNumeric(end))) {
+    if ( Array.isArray(array) && (!begin || isNumeric(begin))
+        && (!end || isNumeric(end))) {
 
         var newArray = [];
         start = (begin < 0) ? array.length - Math.abs(begin) : begin;
