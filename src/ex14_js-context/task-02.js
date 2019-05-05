@@ -3,22 +3,13 @@ function Hangman(word) {
   var guessWord, targetWordArray, errorCounter, notGuessedLetterArray, temp;
   setPropertyValue();
   function setPropertyValue(setGuessWord) {
-    if (setGuessWord !== undefined) {
-      guessWord = setGuessWord;
-    } else if (setGuessWord === undefined) {
-      guessWord = hangmanWord;
-    }
-    if (Array.isArray(notGuessedLetterArray)) {
-      notGuessedLetterArray.length = 0;
-    } else {
-      notGuessedLetterArray = [];
-    }
+    guessWord = setGuessWord || hangmanWord;
+    notGuessedLetterArray = [];
     targetWordArray = guessWord.split("");
     errorCounter = 6;
-    temp = [];
-    for (var i = 0; i < guessWord.length; i++) {
-      temp[i] = "_";
-    }
+    temp = targetWordArray.map(function(){
+      return '_';
+    });
     return this;
   }
   this.startAgain = function (newGuessWord) {
@@ -52,8 +43,9 @@ function Hangman(word) {
     return this;
   };
   this.getGuessedString = function () {
-    console.log(temp.join(""));
-    return temp.join("");
+    var guessedString = temp.join("");
+    console.log(guessedString);
+    return guessedString;
   };
   this.getErrorsLeft = function () {
     console.log(errorCounter);
@@ -64,7 +56,8 @@ function Hangman(word) {
     return notGuessedLetterArray;
   };
   this.getStatus = function () {
-    console.log(temp.join("") + " | " + "errors left " + errorCounter);
+    var guessedString = temp.join("");
+    console.log(guessedString + " | " + "errors left " + errorCounter);
     return this;
   };
 }
