@@ -1,0 +1,37 @@
+@font-face {
+    font-family: GermaniaOne-Regular;
+    src: url(fonts/GermaniaOne-Regular.ttf);
+}
+
+div {
+    margin: 20px auto ;
+}
+#option_1 {
+    width: 600px;
+    height: auto;
+    background-color: #ffd700;
+
+    font-family: 'Germania One', cursive;
+}
+#option_2 {
+    width: 640px;
+    background-image: url(img/Background-Tiles6.jpg);
+    color: white;
+
+    font-family: 'Indie Flower', cursive;
+}
+#option_3 {
+    width: 50%;
+    background-image: url(img/Background-Tiles6.jpg);
+    background-repeat: repeat-x;
+    color: white;
+}
+#option_4 {
+    border-width: 10px;
+    border-image: url(img/vxnG875MKp.jpg) 30 round round;
+    background: linear-gradient(45deg, #EECFBA, #C5DDE8);
+}
+#option_5 {
+    width: 20%;
+    background: repeating-linear-gradient(45deg, cornflowerblue, cornflowerblue 10px, silver 10px, silver 20px);
+}
