@@ -13,10 +13,9 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
     width: 82.5rem;
-    height: 61.8rem;
+    height: 100vh;
     margin: 0 auto;
 }
 /*...................................HEADER................................*/
@@ -76,7 +75,7 @@
 .main {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
     height: 100%;
 }
@@ -84,10 +83,8 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
     width: 12.5rem;
     background: #1f2637;
-    margin-top: 22px;
 }
 .sidebar__add, .sidebar__nav, .sidebar__user-category {
     width: 100%;
@@ -192,10 +189,12 @@
     color: #7874cf;
 }
 .sidebar__history_list {
-    min-height: 22rem;
     width: 100%;
+    height: 22rem;
     background: #1f2637;
     margin-bottom: 6px;
+    overflow-y: auto;
+    padding-bottom: 20px;
 }
 .history_list__elem {
     display: flex;
@@ -244,7 +243,7 @@
     border-bottom: 1px solid #dadfea;
     padding-left: 23px;
 }
-.filter {
+.sort {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -255,7 +254,7 @@
     border-bottom: 1px solid #dadfea;
     padding-left: 23px;
     }
-.filter a {
+.sort a {
     text-decoration: none;
     color: #8c97b2;
     font-size: 12px;
@@ -263,12 +262,17 @@
     line-height: 25px;
     padding: 3px 11px;
 }
-.filter a:hover {
+.sort a:hover {
     color: #ffffff;
     border-radius: 10px;
     background-color: #97b3ce;
 }
-.nav__search {
+a.active_category {
+    border-radius: 10px;
+    color: #ffffff;
+    background-color: #97b3ce;
+}
+.nav__filter {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -281,29 +285,45 @@
     font-size: 13px;
     font-weight: 400;
     line-height: 26px;
+    margin-right: 30px;
 }
-.nav__search button {
+.nav__filter button {
+    position: relative;
+    width: 12px;
+    height: 13px;
     background: white;
     color: #8c97b2;
 }
+#filter {
+    width: 350px;
+}
+.fa-times, .fa-search  {
+    position: absolute;
+    top: 0;
+    left: 0;
+ }
+.fa-times:hover {
+    cursor: pointer;
+}
 .content_library {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     align-content: flex-start;
     width: 100%;
     height: 100%;
-    padding: 20px 10px;
+    padding: 20px 0;
     overflow-y: scroll;
 }
 .library_item {
     width: 202px;
     height: 350px;
     margin-bottom: 20px;
-    border: 1px solid rgba(140, 151, 178, 0.4); /*for example*/
+    margin-left: 1.2rem;
 }
 .library_item img {
     width: 100%;
+    max-height: 275px;
 }
 .library_item__name {
     color: #444c63;
@@ -320,55 +340,37 @@
 .rating {
      display: flex;
      flex-direction: row;
+    position: relative;
  }
 .rating:hover {
     cursor: pointer;
 }
 .rating_star {
     position: relative;
-    width: 14px;
+    width: 20px;
     height: 14px;
-    border-radius: 50%;
     margin-left: 2px;
 }
-.yellow_block {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 0;
-    height: 10px;
-    background: #ffab00;
-}
-.rating_star__front {
-    position: absolute;
-    top: -8px;
-    left: -1px;
-    width: 15px;
-    height: 20px;
-
+.rating_star:after {
+    font-family: "FontAwesome", sans-serif;
+    content: "\f006";
     color: #ffab00;
-    font-size: 20px;
 }
-.rating_star__back {
+.active_star:before {
+    font-family: "FontAwesome", sans-serif;
+    content: "\f005 ";
     position: absolute;
-    top: -9px;
-    left: -1.5px;
-    width: 5px;
-    height: 5px;
-    color: white;
-    font-size: 22px;
+    color: #ffab00;
 }
-.active_star:first-child {
-    width: 11px;
-}
-.inactive:first-child {
-    width: 0;
-}
+
 /*...................................FOOTER................................*/
 .footer {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
     width: 100%;
     height: 2.8rem;
     border-radius: 0 0 5px 5px;
@@ -390,4 +392,105 @@
 }
 .settings {
     background-color: #15a4fa;
+}
+
+/*...................................popUp................................*/
+
+.container_popUp-addBook {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(80, 85, 71, 0.49)
+}
+.popUp-addBook {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    position: relative;
+    width: 700px;
+    height: 700px;
+    margin: 200px auto;
+    background: #494C52;
+    z-index: 11;
+    border-radius: 5px;
+}
+.fa-times-circle-o {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 10px 10px 100% 10px;
+    height: 40px;
+    color: #f5f5f5;
+}
+.fa-times-circle-o:hover {
+    cursor: pointer;
+}
+.popUp-addBook form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 400px;
+    color: white;
+}
+.popUp-addBook form p {
+    font-size: 18px;
+    font-weight: 400;
+    color: #ff1e26;
+}
+.popUp-addBook label {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 20px;
+}
+.popUp-addBook input {
+    width: 300px;
+    border-radius: 3px;
+    font-size: 18px;
+    padding: 2px 5px;
+ }
+.popUp-addBook input::placeholder {
+    font-size: 18px;
+}
+.popUp-addBook input[name="rating"] {
+    background: #494C52;
+    color: gold;
+    width: 50px;
+}
+.popUp-addBook span {
+    font-size: 20px;
+}
+#lastName {
+    margin: 10px 0 10px auto ;
+}
+.rate {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+input.submit {
+    width: 150px;
+    padding: 10px 20px;
+    margin: 20px auto;
+    background: #60c685;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 20px;
+    color: #555555;
+}
+input.submit:hover {
+    cursor: pointer;
+    color: white;
+    background: #555555;
+}
+
+/*.............................helper classes..................................*/
+.show {
+    visibility: visible;
+}
+.hide {
+    visibility: hidden;
 }

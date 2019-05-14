@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="assets/fonts/Proxima%20Nova/stylesheet.css">
     <link type="text/css" rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"></head>
+    <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <body>
 <div class="wrapper">
     <!--/*...................................HEADER................................*/-->
@@ -89,29 +89,63 @@
 
         <section class="content">
             <header class="content_header">Browse Available Books</header>
-            <div class="filter">
-                <div class="filter__menu">
-                <a href="#" class="all_books">All Books</a>
-                <a href="#" class="most_recent">Most Recent</a>
-                <a href="#" class="most_popular">Most Popular</a>
-                <a href="#" class="free_books">Free Books</a>
+            <div class="sort">
+                <div class="sort__menu">
+                <a href="#" id="all_books">All Books</a>
+                <a href="#" id="most_recent">Most Recent</a>
+                <a href="#" id="most_popular">Most Popular</a>
+                <a href="#" id="free_books">Free Books</a>
                 </div>
-                <form action="#" method="get" class="nav__search">
-                        <label for="search">
-                            <input type="text" id="search" placeholder="Enter Keywords">
+                <div class="nav__filter">
+                        <label for="filter">
+                            <input type="text" id="filter" placeholder="Enter Keywords">
                         </label>
-                    <button type="submit">
+                    <button type="submit" id="filter_button">
                         <i class="fa fa-search" aria-hidden="true"></i>
+                        <i class="fa fa-times hide" aria-hidden="true"></i>
                     </button>
-                </form>
+                </div>
             </div>
             <article class="content_library"></article>
         </section>
     </main>
+
     <!--/*...................................FOOTER................................*/-->
     <div class="footer" >
         <div class="question"><a href=""><i class="fa fa-question-circle" aria-hidden="true"></i></a></div>
         <div class="settings"><a href=""><i class="fa fa-cog" aria-hidden="true"></i></a></div>
+    </div>
+
+    <!--/*...................................POPUP................................*/-->
+    <div class="container_popUp-addBook">
+        <div class="popUp-addBook">
+            <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i>
+            <form action="#" method="GET" name="book">
+                <label>Title:<input type="text" id="title" name="title" placeholder="Enter Title"></label>
+                <label>Author:<input type="text" id="firstName" name="firstName" placeholder="Enter First Name"></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name">
+                <label>Cost:<input type="text" id="cost" name="cost" placeholder="Enter Cost"></label>
+                <label>Image:<input type="url" id="image_url" name="image_url" value="assets/img/by_default.jpg" placeholder="Enter Url">
+                </label>
+                <div class="rate"><span>Rating:</span>
+                    <div class="rating">
+                        <div class="rating_star active_star" data-elem="1"></div>
+                        <div class="rating_star" data-elem="2"></div>
+                        <div class="rating_star" data-elem="3"></div>
+                        <div class="rating_star" data-elem="4"></div>
+                        <div class="rating_star" data-elem="5"></div>
+                    </div>
+                    <input type="text" name="rating" id="rating">
+                </div>
+                <label>Categories:
+                    <input checked type="checkbox" class="checkbox" name="category" value="must_read">Must read
+                    <input type="checkbox" class="checkbox" name="category" value="best">Best
+                    <input type="checkbox" class="checkbox" name="category" value="non_fiction">Non fiction
+                </label>
+                <p class="prevent hide">* Please, fill in form fields.</p>
+                <input type="button" value="Add a book" class="submit">
+            </form>
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="js/main.js"></script>
