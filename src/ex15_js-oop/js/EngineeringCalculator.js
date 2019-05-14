@@ -1,32 +1,40 @@
-function EngineeringCalculator(){
+function EngineeringCalculator() {
   Calc.call(this);
-  EngineeringCalculator.prototype = Object(Calc.prototype);
-  this.getResult = function(numberOfDecimalPlaces) {
-    if (numberOfDecimalPlaces) {
+}
+EngineeringCalculator.prototype = Object.create(Calc.prototype);
+EngineeringCalculator.prototype.constructor = EngineeringCalculator;
+
+EngineeringCalculator.prototype.getResultToFixed = function(numberOfDecimalPlaces) {
+    if (isNumeric(numberOfDecimalPlaces)) {
       if (Array.isArray(this.currentValue)) {
-        temp = this.currentValue.map(elem => elem.toFixed(2));
+         temp = this.currentValue.map(elem => elem.toFixed(numberOfDecimalPlaces));
         return temp;
       }
       return +(this.currentValue.toFixed(numberOfDecimalPlaces));
     }
     return this.currentValue;
   };
-  this.getSquareRoot = function(value) {
+
+EngineeringCalculator.prototype.getSquareRoot = function(value) {
+  if (isNumeric(value)) {
     if (value > 0) {
       this.currentValue = Math.sqrt(value);
-    } else if (value <= 0){
+    } else if (value <= 0) {
       console.log("Enter a number greater than zero")
     } else {
       this.currentValue = Math.sqrt(this.currentValue);
     }
+  }
     return this;
   };
-  this.getExponentiation = function (value1, value2) {
-    if (value1 && value2) {
+
+EngineeringCalculator.prototype.getExponentiation = function (value1, value2) {
+   if (isNumeric(value1) && isNumeric(value2)) {
       this.currentValue = Math.pow(value1, value2);
-      return this.currentValue;
-    }
-    console.log("Enter value1, value1");
+    } else if (!value1 || !value2) {
+     console.log("Enter value1, value2");
+   }
     return this;
   }
-}
+
+
