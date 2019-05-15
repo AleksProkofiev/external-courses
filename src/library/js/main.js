@@ -67,15 +67,15 @@ function createBook(item) {
   }
 }
 
-// function setRating(event) {           //линтер не пропускает. при запуске раскомментить. исправлю позже
-//   let dataElem = +event.target.getAttribute("data-elem");
-//   let id = +event.target.parentElement.parentElement.getAttribute("id");
-//   books.forEach(function (elem) {
-//     if (elem.id === id) {
-//       elem.rating = dataElem;
-//     }
-//   });
-// }
+function setRating(event) {
+  let dataElem = +event.target.getAttribute("data-elem");
+  let id = +event.target.parentElement.parentElement.getAttribute("id");
+  for (let i = 0; i < books.length; i++) {
+    if (books[i].id === id) {
+        books[i].rating = dataElem;
+    }
+  }
+}
 
 function getRating(event) {
   if (event.target.classList.contains("rating_star")) {
@@ -242,7 +242,7 @@ function addBookRating(event) {
 
 function addBook(value) {
   let book = {};
-  book.id = getRandomId();
+  book.id = getUniqueId();
   book.title = value.elements.title.value;
   book.author = {firstName: value.elements.firstName.value, lastName: value.elements.lastName.value};
   book.cost = value.elements.cost.value;
@@ -259,16 +259,16 @@ function addBook(value) {
   console.log(books);
 }
 
+function getUniqueId() {
+  let number1 = new Date().getTime().toString().slice(-5);
+  let number2 = getRandomNumberMinMax(10, 99);
+  let uniqueId = number1 + number2;
+  return +uniqueId;
+}
 
-// function getRandomId() {                 //линтер не пропускает. при запуске раскомментить. исправлю позже
-//   let x = 1;
-//   while (books.some(function (elem) {
-//     return elem.id === x;
-//   })) {
-//     x++;
-//   }
-//   return x;
-// }
+function getRandomNumberMinMax(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function validateInputValue() {
   let prevent = document.querySelector(".prevent");
