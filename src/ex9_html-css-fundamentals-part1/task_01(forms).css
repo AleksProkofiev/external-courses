@@ -1,0 +1,78 @@
+html, div, h1, h2, h3, h4, h5, h6, p, form, label {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+#form {
+    position: relative;
+    width: 500px;
+    height: 400px;
+    margin: 50px auto;
+}
+p {
+    color: red;
+}
+.hint {
+    float: right;
+    width: 100px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    color: #F8E5E5;
+    background: #D45252;
+    position: relative;
+}
+.hint:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 100%;
+    top: calc(50% - 4px);
+    border-top: 4px solid transparent;
+    border-right: 6px solid #D45252;
+    border-bottom: 4px solid transparent;
+}
+#hintEmail {
+    position: absolute;
+    top: 113px;
+    right: 60px;
+}
+#hintWebsite {
+    position: absolute;
+    top: 153px;
+    right: 60px;
+}
+input {
+    margin-left: 50px;
+    border-radius: 3px;
+}
+textarea {
+    width: 168px;
+    max-width: 168px;
+    max-height: 50px;
+}
+.field {
+    clear:both;
+    text-align:right;
+    margin: 20px;
+}
+label {
+    float: left;
+}
+#main {
+    float:left;
+}
+#submit {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+}
+
+
