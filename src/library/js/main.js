@@ -1,10 +1,14 @@
 
-loadBooks('https://rsu-library-api.herokuapp.com/books');
+loadBooks('https://rsu-library-api.herokuapp.com/books', function () {
+    showBooks(books);
+    //or showBooks = Function Declaration;
+    // loadBooks('https://rsu-library-api.herokuapp.com/books', showBooks(books);
+});
 
 let books,
   state;
 
-function loadBooks(url) {
+function loadBooks(url, callback) {
   let xhr = new XMLHttpRequest();
   xhr.open('GET', url, true);
   xhr.onreadystatechange = function() {
@@ -19,7 +23,7 @@ function loadBooks(url) {
       } catch (e) {
         console.log("Server: " + e.message);
       }
-      showBooks(books);
+        callback();
     }
   };
   xhr.send();
@@ -27,8 +31,8 @@ function loadBooks(url) {
 
 function showBooks(books) {
   if (Array.isArray(books)) {
-    books.forEach((function (item, index) {
-      createBook(books[index]);
+    books.forEach((function (item) {
+      createBook(item);
     }))
   }
 }
@@ -70,11 +74,14 @@ function createBook(item) {
 function setRating(event) {
   let dataElem = +event.target.getAttribute("data-elem");
   let id = +event.target.parentElement.parentElement.getAttribute("id");
+  let tittle;
   for (let i = 0; i < books.length; i++) {
     if (books[i].id === id) {
         books[i].rating = dataElem;
+        tittle = books[i].title;
     }
   }
+  history.setAction("setRating", tittle, dataElem);
 }
 
 function getRating(event) {
@@ -89,54 +96,53 @@ function getRating(event) {
   }
 }
 
-//...............................sort..............................
+//...............................filter_menu..............................
 
-const categories = document.querySelector(".sort__menu");
-const buttonMostRecentBooks = document.querySelector("#most_recent");
-buttonMostRecentBooks.addEventListener("click", showMostRecentBooks);
-const buttonAllBooks = document.querySelector("#all_books");
-buttonAllBooks.addEventListener("click", showAllBooks);
-const buttonMostPopularBooks = document.querySelector("#most_popular");
-buttonMostPopularBooks.addEventListener("click", showMostPopularBooks);
-const buttonFreeBooks = document.querySelector("#free_books");
-buttonFreeBooks.addEventListener("click", showFreeBooks);
+const categories = document.querySelector(".filter_bar__menu");
+categories.addEventListener("click", filterBooks);
 
-function setClassActive() {
-  let array = Array.from(categories.children);
-  for (var i = 0; i < array.length; i++) {
-    if (array[i].getAttribute("id") === (this.getAttribute("id"))) {
-      continue;
+function filterBooks(event) {
+  let currentTarget = event.target.id;
+    switch (currentTarget) {
+      case "all_books":
+        showAllBooks.call(this);
+        break;
+      case "most_recent":
+        showMostRecentBooks.call(this);
+        break;
+      case "most_popular":
+        showMostPopularBooks.call(this);
+        break;
+      case "free_books":
+        showFreeBooks.call(this);
+        break;
+        default:
+          console.log("error");
     }
-    array[i].classList.remove("active_category");
-  }
-  this.classList.toggle("active_category");
 }
 
 function showAllBooks() {
   state = books.sort(function (a, b) {
     return a.id - b.id
   });
-  setClassActive.call(this);
-  deleteBooks();
-  showBooks(state);
+    showFilteredBooks.call(this);
+    history.setAction("filter", "All Books");
 }
 
 function showMostRecentBooks() {
-  state = books.sort(function (a, b) {
-    return b.updatedAt - a.updatedAt
-  });
-  setClassActive.call(this);
-  deleteBooks();
-  showBooks(state);
+    state = books.sort(function (a, b) {
+        return b.updatedAt - a.updatedAt
+    });
+    showFilteredBooks.call(this);
+    history.setAction("filter", "Most Recent");
 }
 
 function showMostPopularBooks() {
   state = books.sort(function (a, b) {
     return b.rating - a.rating
   });
-  setClassActive.call(this);
-  deleteBooks();
-  showBooks(state);
+    showFilteredBooks.call(this);
+    history.setAction("filter", "Most Popular");
 }
 
 function showFreeBooks() {
@@ -150,6 +156,17 @@ function showFreeBooks() {
   } else {
     showMessageNotFound();
   }
+  history.setAction("filter", "Free Books");
+}
+
+function showFilteredBooks() {
+    setClassActive.call(this);
+    deleteBooks();
+    showBooks(state);
+}
+
+function setClassActive() {
+    this.classList.toggle("active_category");
 }
 
 function showMessageNotFound() {
@@ -178,7 +195,6 @@ function hasClassActiveCategory() {
 
 function filter() {
   let collection = hasClassActiveCategory() ? state : books;
-  console.log(collection);
   showDeleteIcon();
   let value = filterInput.value.toLowerCase();
   let temp = collection.filter(function (item) {
@@ -187,8 +203,9 @@ function filter() {
          || item.title.toLowerCase().indexOf(value) > -1)
   });
     deleteBooks();
-    console.log(temp);
     showBooks(temp);
+    history.setAction("filterSymbols", value);
+
 }
 
 function deleteSearchText() {
@@ -236,7 +253,6 @@ function showPopUp() {
 
 function addBookRating(event) {
   let dataElem = +event.target.getAttribute("data-elem");
-  console.log(dataElem);
   inputRating.setAttribute("value", dataElem);
 }
 
@@ -253,10 +269,10 @@ function addBook(value) {
   });
   book.createdAt = new Date().getTime();
   book.updatedAt = new Date().getTime();
+  history.setAction("addBook", book.title, book.author.firstName, book.author.lastName);
   books.push(book);
   deleteBooks();
   showBooks(books);
-  console.log(books);
 }
 
 function getUniqueId() {
@@ -288,3 +304,89 @@ function validateInputValue() {
     prevent.classList.remove("hide");
   }
 }
+
+
+//...............................history...........................................
+function History() {
+  let storage = localStorage;
+  let arrayHistory = [];
+  let historyList = document.querySelector(".sidebar__history_list");
+
+  this.setAction = function (action, values) {
+    let arrayHistoryElement = Array.from(arguments);
+    let time = history.getTimeAction();
+    arrayHistoryElement.splice(1, 0, time);
+    arrayHistory.push(arrayHistoryElement);
+    this.clearHistoryList();
+    this.showHistoryList(arrayHistory);
+  };
+  
+  this.showHistoryList = function (array) {
+    let reverse = array.reverse();
+      for (let i = 0; i < 3; i++) {
+          this.createHistoryItem(reverse[i]);
+      }
+      storage.arrayHistory = arrayHistory;
+  };
+
+  //иконку history добавлю позже через css
+  this.createHistoryItem = function (elem) {
+    let flag = elem[0];
+    let action = historyList.appendChild(document.createElement("div"));
+      action.classList.add("history_list__elem");
+    switch (flag) {
+
+      case "addBook":
+        action.innerHTML = "<p>You added<span>" + elem[2] + "</span>"
+          + "<p>by<span>" + elem[3] + " " + elem[4] + "</span></p>"
+          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+          break;
+
+      case "filter":
+        action.innerHTML = "<p>You were looking for books marked<span>" + elem[2] + "</span>"
+          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+          break;
+
+      case "filterSymbols":
+        action.innerHTML = "<p>you searched for the book characters<span>" + elem[2] + "</span>"
+          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+          break;
+
+      case "getRating":
+        action.innerHTML = "<p>You changed the rating of the book<span>" + elem[2] + "</span>"
+          + "<p>to<span>" + elem[3] + "</span></p>"
+          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+          break;
+        default:
+          console.log("error");
+    }
+  };
+
+  this.getTimeDifference = function (time) {
+    let timeDifference = new Date().getTime() - time;
+    let output;
+    if (+timeDifference < 1000) {
+        output = Math.floor(+timeDifference / 1000) + " seconds ago";
+    } else if (+timeDifference > 1000 && +timeDifference < 60000) {
+        output = Math.floor(+timeDifference / 10000) + " minutes ago";
+    } else if (+timeDifference > 60000 && +timeDifference < 1440000) {
+      output = Math.floor(+timeDifference / 60000) + " hours ago";
+    } else if (+timeDifference > 1440000 && +timeDifference < 720000) {
+        output = Math.floor(+timeDifference / 60000) + " days ago";
+    }
+    return output;
+  };
+  
+  this.getTimeAction = function () {
+    return new Date().getTime();
+  };
+
+  this.clearHistoryList = function () {
+    while (historyList.firstChild) {
+        historyList.removeChild(historyList.firstChild);
+    }
+  }
+
+}
+
+let history = new History();

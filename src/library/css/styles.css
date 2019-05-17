@@ -10,20 +10,26 @@
     margin: 0;
     box-sizing: border-box;
 }
-.wrapper {
+
+.html {
+    height: 100%;
+}
+
+body {
     display: flex;
     flex-direction: column;
-    position: relative;
-    width: 82.5rem;
-    height: 100vh;
-    margin: 0 auto;
+    align-items: center;
+    min-height: 100vh;
+    height: 100%;
 }
+
 /*...................................HEADER................................*/
 .header {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 100%;
+    flex: 0 0 auto;
+    width: 82.5rem;
     height: 2.8rem;
     border-radius: 5px 5px 0 0;
     background-color: #2f364a;
@@ -76,8 +82,8 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    width: 100%;
-    height: 100%;
+    flex: 1 0 auto;
+    width: 82.5rem;
 }
 .sidebar {
     display: flex;
@@ -198,27 +204,23 @@
 }
 .history_list__elem {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    height: 50px;
     margin-top: 20px;
-    padding-left: 10px;
-}
-.history_list__elem i  {
-    margin-left: 10px;
-    margin-right: 5px;
-    color: #78829D;
+    margin-left: 30px;
 }
 .history_list__elem p {
     font-size: 12px;
     color: #444F63;
 }
-.book_name, .author_name, .category_name {
+.history_list__elem span {
     font-size: 12px;
     color: #78829D;
     margin: 0 3px;
 }
 .minutes {
     display: block;
-    padding-top: 15px;
+    padding: 15px;
 }
 /*...................................CONTENT................................*/
 .content {
@@ -243,7 +245,7 @@
     border-bottom: 1px solid #dadfea;
     padding-left: 23px;
 }
-.sort {
+.filter_bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -254,7 +256,7 @@
     border-bottom: 1px solid #dadfea;
     padding-left: 23px;
     }
-.sort a {
+.filter_bar a {
     text-decoration: none;
     color: #8c97b2;
     font-size: 12px;
@@ -262,7 +264,7 @@
     line-height: 25px;
     padding: 3px 11px;
 }
-.sort a:hover {
+.filter_bar a:hover {
     color: #ffffff;
     border-radius: 10px;
     background-color: #97b3ce;
@@ -272,7 +274,7 @@ a.active_category {
     color: #ffffff;
     background-color: #97b3ce;
 }
-.nav__filter {
+.filter_bar__filter {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -287,7 +289,7 @@ a.active_category {
     line-height: 26px;
     margin-right: 30px;
 }
-.nav__filter button {
+.filter_bar__filter button {
     position: relative;
     width: 12px;
     height: 13px;
@@ -368,10 +370,8 @@ a.active_category {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis: auto;
-    width: 100%;
+    flex: 0 0 auto;
+    width: 82.5rem;
     height: 2.8rem;
     border-radius: 0 0 5px 5px;
     background-color: #181e2c;

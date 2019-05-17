@@ -8,7 +8,7 @@
     <link type="text/css" rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <body>
-<div class="wrapper">
+<!--<div class="wrapper">-->
     <!--/*...................................HEADER................................*/-->
     <header class="header" >
         <div class="help"><a href="#">Help Center</a></div>
@@ -73,30 +73,19 @@
                     <span class="non_fiction">Non Fiction</span>
                 </div>
             </div>
-            <div class="sidebar__history_list">
-                <div class="history_list__elem">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    <p>You added<span class="book_name">Fight Club</span>by<span class="author_name">Chuck Palahniuk</span>to your<span class="category_name">Must Read Titles.</span><br><span class="minutes">48 minutes ago</span>
-                    </p>
-                </div>
-                <div class="history_list__elem">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i>
-                    <p>You added<span class="book_name">The Trial</span>by<span class="author_name">Franz Kafka</span>to your<span class="category_name">Must Read Titles.</span><br><span class="minutes">48 minutes ago</span>
-                    </p>
-                </div>
-            </div>
+            <div class="sidebar__history_list"></div>
         </aside>
 
         <section class="content">
             <header class="content_header">Browse Available Books</header>
-            <div class="sort">
-                <div class="sort__menu">
+            <div class="filter_bar">
+                <div class="filter_bar__menu">
                 <a href="#" id="all_books">All Books</a>
                 <a href="#" id="most_recent">Most Recent</a>
                 <a href="#" id="most_popular">Most Popular</a>
                 <a href="#" id="free_books">Free Books</a>
                 </div>
-                <div class="nav__filter">
+                <div class="filter filter_bar__filter">
                         <label for="filter">
                             <input type="text" id="filter" placeholder="Enter Keywords">
                         </label>
@@ -147,7 +136,7 @@
             </form>
         </div>
     </div>
-</div>
+<!--</div>-->
 <script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>
