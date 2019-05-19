@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Library</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" rel="stylesheet" href="assets/fonts/Proxima%20Nova/stylesheet.css">
-    <link type="text/css" rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link type="text/css" rel="stylesheet" href="public/assets/fonts/Proxima%20Nova/stylesheet.css">
+    <link type="text/css" rel="stylesheet" href="public/css/styles.css">
+    <link rel="stylesheet" href="public/assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <body>
 <!--<div class="wrapper">-->
     <!--/*...................................HEADER................................*/-->
@@ -15,7 +15,7 @@
         <div class="dot"></div>
         <div class="support"><a href="#">Our Support</a></div>
         <div class="help_name">
-            <img src="assets/img/avatar-01.png" alt="">
+            <img src="public/assets/img/avatar-01.png" alt="">
             <p><a href="#">John Doe</a></p>
             <i class="fa fa-check-circle" aria-hidden="true"></i>
         </div>
@@ -114,7 +114,7 @@
                 <label>Author:<input type="text" id="firstName" name="firstName" placeholder="Enter First Name"></label>
                 <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name">
                 <label>Cost:<input type="text" id="cost" name="cost" placeholder="Enter Cost"></label>
-                <label>Image:<input type="url" id="image_url" name="image_url" value="assets/img/by_default.jpg" placeholder="Enter Url">
+                <label>Image:<input type="url" id="image_url" name="image_url" value="public/assets/img/by_default.jpg" placeholder="Enter Url">
                 </label>
                 <div class="rate"><span>Rating:</span>
                     <div class="rating">
@@ -131,12 +131,15 @@
                     <input type="checkbox" class="checkbox" name="category" value="best">Best
                     <input type="checkbox" class="checkbox" name="category" value="non_fiction">Non fiction
                 </label>
-                <p class="prevent hide">* Please, fill in form fields.</p>
+                <p class="prevent hide">* Please, check all fields and enter numbers in the Сost field</p>
                 <input type="button" value="Add a book" class="submit">
             </form>
         </div>
     </div>
 <!--</div>-->
-<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript" src="public/js/lib/localStorage.js"></script>
+<script type="text/javascript" src="public/js/lib/debounce.js"></script>
+<script type="text/javascript" src="public/js/main.js"></script>
+
 </body>
 </html>

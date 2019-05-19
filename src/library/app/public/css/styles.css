@@ -16,6 +16,12 @@
 }
 
 body {
+
+
+    /*position: relative;*/
+
+
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -205,9 +211,19 @@ body {
 .history_list__elem {
     display: flex;
     flex-direction: column;
+    position: relative;
     height: 50px;
-    margin-top: 20px;
-    margin-left: 30px;
+    margin: 20px 0 50px 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.history_list__elem:before {
+    position: absolute;
+    font-family: "FontAwesome", sans-serif;
+    content: "\f017";
+    color: #78829D;
+    top: 5px;
+    left: -10px;
 }
 .history_list__elem p {
     font-size: 12px;
@@ -217,6 +233,9 @@ body {
     font-size: 12px;
     color: #78829D;
     margin: 0 3px;
+}
+.history_list__elem p:last-child {
+    margin-top: 10px;
 }
 .minutes {
     display: block;
@@ -367,6 +386,9 @@ a.active_category {
 
 /*...................................FOOTER................................*/
 .footer {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 0;
     display: flex;
     justify-content: flex-end;
     align-items: center;

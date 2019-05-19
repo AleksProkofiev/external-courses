@@ -1,8 +1,7 @@
 
 loadBooks('https://rsu-library-api.herokuapp.com/books', function () {
     showBooks(books);
-    //or showBooks = Function Declaration;
-    // loadBooks('https://rsu-library-api.herokuapp.com/books', showBooks(books);
+    //I'll fix it in the next commit
 });
 
 let books,
@@ -58,7 +57,7 @@ function createBook(item) {
 
   let rating = book.appendChild(document.createElement("div"));
   rating.classList.add("rating");
-  rating.addEventListener("mouseover", getRating);
+  rating.addEventListener("mouseover", debounce(getRating, 50));
   rating.addEventListener("click", setRating);
 
   for (let i = 0; i < 5; i++) {
@@ -126,6 +125,7 @@ function showAllBooks() {
     return a.id - b.id
   });
     showFilteredBooks.call(this);
+    clearInput();
     history.setAction("filter", "All Books");
 }
 
@@ -134,6 +134,7 @@ function showMostRecentBooks() {
         return b.updatedAt - a.updatedAt
     });
     showFilteredBooks.call(this);
+    clearInput();
     history.setAction("filter", "Most Recent");
 }
 
@@ -142,6 +143,7 @@ function showMostPopularBooks() {
     return b.rating - a.rating
   });
     showFilteredBooks.call(this);
+    clearInput();
     history.setAction("filter", "Most Popular");
 }
 
@@ -156,6 +158,7 @@ function showFreeBooks() {
   } else {
     showMessageNotFound();
   }
+  clearInput();
   history.setAction("filter", "Free Books");
 }
 
@@ -175,15 +178,13 @@ function showMessageNotFound() {
 
 function deleteBooks() {
   let library = document.querySelector(".content_library");
-  while (library.firstChild) {
-    library.removeChild(library.firstChild);
-  }
+  library.innerHTML = "";
 }
 
 //........................filter..........................
 
 const filterInput = document.querySelector("#filter");
-filterInput.addEventListener("input", filter);
+filterInput.addEventListener("input", debounce(filter, 500));
 const filterButton = document.querySelector("#filter_button");
 filterButton.addEventListener("click", deleteSearchText);
 
@@ -259,8 +260,9 @@ function addBookRating(event) {
 function addBook(value) {
   let book = {};
   book.id = getUniqueId();
-  book.title = value.elements.title.value;
-  book.author = {firstName: value.elements.firstName.value, lastName: value.elements.lastName.value};
+  book.title = getFirstChatInUpperCase(value.elements.title.value);
+  book.author = {firstName: getFirstChatInUpperCase(value.elements.firstName.value),
+      lastName: getFirstChatInUpperCase(value.elements.lastName.value)};
   book.cost = value.elements.cost.value;
   book.image_url = value.elements.image_url.value;
   book.rating = value.elements.rating.value;
@@ -269,7 +271,7 @@ function addBook(value) {
   });
   book.createdAt = new Date().getTime();
   book.updatedAt = new Date().getTime();
-  history.setAction("addBook", book.title, book.author.firstName, book.author.lastName);
+  history.setAction("addBook", [book.title, book.author.firstName, book.author.lastName]);
   books.push(book);
   deleteBooks();
   showBooks(books);
@@ -290,10 +292,10 @@ function validateInputValue() {
   let prevent = document.querySelector(".prevent");
   let form = document.forms.book;
   if (form.elements.title.value !== ""
-  && form.elements.firstName.value !== ""
-  && form.elements.lastName.value !== ""
-  && form.elements.cost.value !== ""
-  ) {
+    && form.elements.firstName.value !== ""
+    && form.elements.lastName.value !== ""
+    && form.elements.cost.value !== ""
+    && !isNaN(+form.elements.cost.value)) {
     prevent.classList.add("hide");
     addBook(form);
     form.elements.title.value = "";
@@ -305,57 +307,75 @@ function validateInputValue() {
   }
 }
 
+function getFirstChatInUpperCase (value) {
+    return value.charAt(0).toUpperCase() + value.slice(1);
+}
 
 //...............................history...........................................
+
 function History() {
-  let storage = localStorage;
   let arrayHistory = [];
   let historyList = document.querySelector(".sidebar__history_list");
 
-  this.setAction = function (action, values) {
-    let arrayHistoryElement = Array.from(arguments);
-    let time = history.getTimeAction();
-    arrayHistoryElement.splice(1, 0, time);
+  this.setAction = function (action, details) {
+    let arrayHistoryElement = {};
+    arrayHistoryElement.time = Date.now();
+    arrayHistoryElement.type = action;
+    arrayHistoryElement.details = details;
     arrayHistory.push(arrayHistoryElement);
     this.clearHistoryList();
-    this.showHistoryList(arrayHistory);
-  };
-  
-  this.showHistoryList = function (array) {
-    let reverse = array.reverse();
-      for (let i = 0; i < 3; i++) {
-          this.createHistoryItem(reverse[i]);
-      }
-      storage.arrayHistory = arrayHistory;
+    if (userStorage.get() === null) {
+      this.showHistoryList(arrayHistory);
+      userStorage.set(arrayHistory);
+    } else {
+      arrayHistory = userStorage.get();
+      arrayHistory.push(arrayHistoryElement);
+      this.showHistoryList(arrayHistory);
+      userStorage.set(arrayHistory);
+    }
   };
 
-  //иконку history добавлю позже через css
+  this.showHistoryList = function (array) {
+    let sortedArray = array.sort(function (a, b) {
+        return b.time - a.time
+    });
+    if (sortedArray.length < 3) {
+      for (let i = 0; i < sortedArray.length; i++) {
+         this.createHistoryItem(sortedArray[i]);
+      }
+    } else {
+      for (let i = 0; i < 3; i++) {
+        this.createHistoryItem(sortedArray[i]);
+      }
+    }
+  };
+
   this.createHistoryItem = function (elem) {
-    let flag = elem[0];
+    let flag = elem.type;
     let action = historyList.appendChild(document.createElement("div"));
       action.classList.add("history_list__elem");
     switch (flag) {
 
       case "addBook":
-        action.innerHTML = "<p>You added<span>" + elem[2] + "</span>"
-          + "<p>by<span>" + elem[3] + " " + elem[4] + "</span></p>"
-          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+        action.innerHTML = "<p>You added<span>" + elem.details[0] + "</span>"
+          + "<p>by<span>" + elem.details[1] + " " + elem.details[2] + "</span></p>"
+          + "<p><span>" + this.getTimeDifference(elem.time) + "</span></p>";
           break;
 
       case "filter":
-        action.innerHTML = "<p>You were looking for books marked<span>" + elem[2] + "</span>"
-          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+        action.innerHTML = "<p>You were looking for books marked<span>" + elem.details + "</span>"
+          + "<p><span>" + this.getTimeDifference(elem.time) + "</span></p>";
           break;
 
       case "filterSymbols":
-        action.innerHTML = "<p>you searched for the book characters<span>" + elem[2] + "</span>"
-          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+        action.innerHTML = "<p>You searched for the book characters<span>" + elem.details + "</span>"
+          + "<p><span>" + this.getTimeDifference(elem.time) + "</span></p>";
           break;
 
       case "getRating":
-        action.innerHTML = "<p>You changed the rating of the book<span>" + elem[2] + "</span>"
-          + "<p>to<span>" + elem[3] + "</span></p>"
-          + "<p><span>" + history.getTimeDifference(elem[1]) + "</span></p>";
+        action.innerHTML = "<p>You changed the rating of the book<span>" + elem.details[0] + "</span>"
+          + "<p>to<span>" + elem.details[1] + "</span></p>"
+          + "<p><span>" + this.getTimeDifference(elem.time) + "</span></p>";
           break;
         default:
           console.log("error");
@@ -365,28 +385,25 @@ function History() {
   this.getTimeDifference = function (time) {
     let timeDifference = new Date().getTime() - time;
     let output;
-    if (+timeDifference < 1000) {
+    if (+timeDifference < 60000) {
         output = Math.floor(+timeDifference / 1000) + " seconds ago";
-    } else if (+timeDifference > 1000 && +timeDifference < 60000) {
-        output = Math.floor(+timeDifference / 10000) + " minutes ago";
-    } else if (+timeDifference > 60000 && +timeDifference < 1440000) {
-      output = Math.floor(+timeDifference / 60000) + " hours ago";
-    } else if (+timeDifference > 1440000 && +timeDifference < 720000) {
-        output = Math.floor(+timeDifference / 60000) + " days ago";
+
+    } else if (+timeDifference > 60000 && +timeDifference < 3600000) {
+        output = Math.floor(+timeDifference / 60000) + " minutes ago";
+
+    } else if (+timeDifference > 3600000 && +timeDifference < 86400000) {
+      output = Math.floor(+timeDifference / 3600000) + " hours ago";
+
+    } else if (+timeDifference > 86400000) {
+        output = Math.floor(+timeDifference / 86400000) + " days ago";
     }
     return output;
   };
-  
-  this.getTimeAction = function () {
-    return new Date().getTime();
-  };
 
   this.clearHistoryList = function () {
-    while (historyList.firstChild) {
-        historyList.removeChild(historyList.firstChild);
-    }
-  }
-
+    historyList.innerHTML = "";
+  };
 }
 
 let history = new History();
+let userStorage = new Storage("userHistory");
