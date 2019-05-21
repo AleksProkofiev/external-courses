@@ -12,3 +12,4 @@ function Storage(storageKey) {
     localStorage.removeItem(key);
   };
 }
+let userStorage = new Storage("userHistory");
