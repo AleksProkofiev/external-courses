@@ -11,12 +11,10 @@
 }
 
 /*......................................width = 1200px.......................*/
-
 html, body {
     font-size: 105%;
 }
-
-#wrapper {
+.wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -25,23 +23,20 @@ html, body {
 }
 
 /*.........................HEADER...........................*/
-
-#box_header {
+.box_header {
     display: flex;
     justify-content: center;
     width: 75rem;
     border-bottom: 1px solid #eceef4;
 }
-
-header {
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 44rem;
     height: 8.1rem;
 }
-
-#logo {
+.logo {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,20 +44,17 @@ header {
     height: 3.5rem;
     background-image: url("logo.png");
 }
-
-#logo a {
+.logo a {
     text-decoration: none;
     color: #3687c4;
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 1.3rem;
 }
-
 .logo_tablet {
     display: none;
 }
-
-#icons{
+.icons{
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
@@ -71,40 +63,32 @@ header {
     position: relative;
     z-index: 0;
 }
-
-#phone svg {
+.phone svg {
     transform: rotate(90deg);
 }
-
-#phone, #placeholder, #email {
+.phone, .placeholder, .email {
     fill: #6d6e71;
     padding: 0 0.75rem;
 }
-
 .border{
     width: 1px;
     height: 0.9rem;
     background-color: #bcbec3;
     margin-bottom: 0.26rem;
 }
-
-#email {
+.email {
     padding-right: 0;
 }
-
-#phone:hover {
+.phone:hover {
     fill: #1faae2;
   }
-
-#placeholder:hover {
+.placeholder:hover {
     fill: #1faae2;
 }
-
-#email:hover {
+.email:hover {
     fill: #1faae2;
 }
-
-#icons span{
+.icons span{
     position: absolute;
     visibility: hidden;
     display: block;
@@ -117,76 +101,58 @@ header {
     text-align: center;
     line-height: 1.8rem;
 }
-#phone:hover span {
+.phone:hover span {
     visibility: visible;
     top: -0.8rem;
     right: 1.6rem;
 }
-
-#placeholder:hover span {
+.placeholder:hover span {
     visibility: visible;
     top: -0.8rem;
     right: -1rem;
 }
-
-#email:hover span {
+.email:hover span {
     visibility: visible;
     top: -0.8rem;
     right: -3.6rem;
 }
 
-#hint {
-    background-image: url("back.png") ;
-    background-repeat: no-repeat;
-    width: 8.5rem;
-    height: 2.6rem;
-}
-
 /*.........................NAV...........................*/
-
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width:  43.8rem;
 }
-
 .nav__logo_toggle {
     visibility: hidden;
 }
-
 .fa-bars {
     visibility: hidden;
 }
-
 .nav__menu {
     display: flex;
     font-size: 0.5rem;
     font-weight: 700;
     color: #6d6e71;
 }
-
 .nav__menu__items {
     position: relative;
     padding: 1.3rem 0.75rem;
     border-right: 1px solid #eceef4;
 }
-
 .nav__menu__items:last-child {
     border-right: none;
 }
-
 .nav__menu__items a {
     display: block;
     position: relative;
     color: inherit;
     text-decoration: none;
 }
-
 .nav__menu__items:hover {
     color: #1faae2;
 }
-
 .nav__menu__items::after {
      visibility: hidden;
      content: '';
@@ -196,7 +162,6 @@ header {
      border: 1.3rem solid transparent;
      border-bottom: 0.4rem solid #1faae2;
  }
-
 .nav__menu__items:hover::after {
     visibility: visible;
 }
@@ -208,22 +173,17 @@ header {
     font-size: 0.6rem;
     color: #6d6e71;
 }
-
 .nav__search img {
     margin-right: 0.4rem;
     width: 1rem;
     height: auto;
 }
 
-
 /*.........................Main...........................*/
-
-
-#box_main {
+.box_main {
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 100%;
     height: 33.2rem;
     background-image: url("iback.png");
@@ -231,15 +191,12 @@ header {
     background-position: center center;
     background-size: 75rem auto;
 }
-
-main {
+.main {
     width: 43.8rem;
     height: 11.2rem;
     padding-bottom: 8rem;
-
 }
-
-#main_text {
+.main_text {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -247,44 +204,37 @@ main {
     font-size: 2.2rem;
     font-weight: 700;
 }
-
-#main_text div {
+.main_text div {
     display: inline-block;
     position: relative;
     margin: 0 auto;
     margin-top: 1.3rem;
 }
-
-#main_text span {
+.main_text span {
     font-size: 5.6rem;
     font-weight: 700;
     color: #bbedff;
 }
-
-#main_text p:first-child {
+.main_text p:first-child {
     font-size: 1.7rem;
     font-weight: 300;
 }
-
-#main_text p:last-child {
+.main_text p:last-child {
     position: absolute;
     top: 0.75rem;
     text-shadow: 1px 1px 8px rgba(1, 1, 1, 0.15);
     font-size: 2.2rem;
     font-weight: 700;
 }
-
-#main_image {
+.main_image {
     display: flex;
     justify-content: flex-end;
     margin-top: 3.6rem;
 }
-
-#main_image img {
+.main_image img {
     margin: 0.4rem;
 }
-
-#img_1, #img_2 {
+.img_1, .img_2 {
     display: flex;
     justify-content: center;
     align-items: flex-end;
@@ -293,8 +243,7 @@ main {
     background-image: url("design2.png");
     background-size: contain;
 }
-
-#img_1 div, #img_2 div {
+.img_1 div, .img_2 div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -304,24 +253,20 @@ main {
     font-weight: 400;
     line-height: 2.2rem;
 }
-
-#img_1 div {
+.img_1 div {
     color: #ffffff;
     background: #8aca51;
     opacity: 0.5;
 }
-
-#img_2 {
+.img_2 {
     background-image: url("design.png");
 }
-
-#img_2 div {
+.img_2 div {
     color: #cc9800;
     background: #feeb75;
     opacity: 0.5;
 }
-
-#fa-chevron-right {
+.chevron-right {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -329,34 +274,27 @@ main {
     height: 9rem;
     background: #f4f4f4;
 }
-
-#fa-chevron-right i {
+.fa-chevron-right i {
     font-size: 1.6rem;
     color: #d4d4d4;
 }
 
-
 /*.........................ARTICLES...........................*/
-
-#box_article {
+.box_article {
     width: 43.8rem;
 }
-
-article {
+.article {
     display: flex;
     justify-content: space-between;
 }
-
-section {
+.section {
     display: flex;
     width: 45%;
 }
-
-section img {
+.section img {
     margin: 0.75rem;
     width: 4rem;
 }
-
 .text span {
     display: block;
     margin-top: 0.75rem;
@@ -365,7 +303,6 @@ section img {
     font-weight: 700;
     line-height: 0.4rem;
 }
-
 .text p {
     text-align: justify;
     font-size: 0.6rem;
@@ -373,225 +310,3 @@ section img {
     font-weight: 300;
     line-height: 0.9rem;
 }
-
-
-/*............................................................*/
-
-/*.........................MEDIA..............................*/
-
-
-
-@media only screen and (max-width : 768px) {
-
-    html, body {
-        font-size: 104%;
-    }
-
-    #wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 46rem;
-        margin: 0 auto;
-        padding: 0;
-    }
-
-    /*.........................HEADER...........................*/
-    #box_header {
-        display: none;
-
-    }
-
-    #logo {
-        display: none;
-    }
-
-
-    /*.........................NAV...........................*/
-
-
-    .nav {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-    }
-
-    .nav__menu-fa-bars {
-        visibility: visible;
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-end;
-        width: 33%;
-
-    }
-
-    .fa-bars {
-        visibility: visible;
-        top: -1rem;
-        color: #1faae2;
-        font-size: 2.5rem;
-    }
-
-    .nav_logo_toggle {
-        visibility: visible;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-    }
-
-    .nav_logo_toggle div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        width: 5rem; /*изменить размер*/
-        height: 2rem;
-        background-image: url("logosmall.png");
-        background-size: 5rem auto;
-        background-repeat: no-repeat;
-    }
-
-    .nav_logo_toggle a {
-        position: absolute;
-        top: -0.5rem;
-        text-decoration: none;
-        color: #3687c4;
-        font-size: 1.3rem;
-        font-weight: 400;
-        line-height: 2.1rem;
-    }
-
-    .nav__menu {
-        display: none;
-        width: 4rem;
-        height: 3.1rem;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #6d6e71;
-    }
-
-     .nav__search {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: 33%;
-        color: #6d6e71;
-         line-height: 3.1rem;
-    }
-
-    .nav__search img {
-        margin-right: 0.6rem;
-        width: 0.75rem;
-        height: auto;
-    }
-
-
-    /*.........................Main...........................*/
-    #box_main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        width: 100%;
-        height: 25.5rem;
-        background-image: url("iback-tablet.png");
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: 100% auto;
-    }
-
-    main {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-    }
-
-    #main_text {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #main_text div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding-bottom: 5.6rem;
-    }
-
-    #main_text span {
-
-        font-size: 4rem;
-        font-weight: 700;
-        color: #bbedff;
-    }
-
-    #main_text p:first-child {
-        font-size: 1.5rem;
-        font-weight: 300;
-    }
-
-    #main_text p:last-child {
-        position: absolute;
-        top: 0.3rem;
-        left: -0.5rem;
-        text-shadow: 1px 1px 0.5rem rgba(1, 1, 1, 0.15);
-        font-size: 2rem;
-        font-weight: 700;
-    }
-
-    #main_image {
-        display: none;
-        justify-content: flex-end;
-        margin-top: 8.1px;
-    }
-
-
-
-    /*.........................ARTICLES...........................*/
-
-    #box_article {
-        width: 100%;
-    }
-
-    article {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    section {
-        display: flex;
-        width: 70%;
-        margin-top: 1rem;
-        padding-right: 1.25rem;
-    }
-
-    section img {
-        margin: 0.75rem;
-        width: 3.5rem;
-
-    }
-
-    .text span {
-        display: block;
-        margin-top: 1.2rem;
-        font-size: 1rem;
-        color: #6d6e71;
-        font-weight: 700;
-        line-height: 0.4rem;
-    }
-
-    .text p {
-        text-align: justify;
-        font-size: 0.6rem;
-        color: #6d6e71;
-        font-weight: 300;
-        line-height: 0.9rem;
-    }
-}
-
-
