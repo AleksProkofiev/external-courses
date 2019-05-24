@@ -1,0 +1,312 @@
+* {
+    vertical-align: baseline;
+    font-weight: inherit;
+    font-family: 'Open Sans', sans-serif;
+    font-style: inherit;
+    font-size: 100%;
+    border: 0 none;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/*......................................width = 1200px.......................*/
+html, body {
+    font-size: 105%;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75rem;
+    margin: 0 auto;
+}
+
+/*.........................HEADER...........................*/
+.box_header {
+    display: flex;
+    justify-content: center;
+    width: 75rem;
+    border-bottom: 1px solid #eceef4;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 44rem;
+    height: 8.1rem;
+}
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    height: 3.5rem;
+    background-image: url("logo.png");
+}
+.logo a {
+    text-decoration: none;
+    color: #3687c4;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.3rem;
+}
+.logo_tablet {
+    display: none;
+}
+.icons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 18.7rem;
+    height: 3.75rem;
+    position: relative;
+    z-index: 0;
+}
+.phone svg {
+    transform: rotate(90deg);
+}
+.phone, .placeholder, .email {
+    fill: #6d6e71;
+    padding: 0 0.75rem;
+}
+.border{
+    width: 1px;
+    height: 0.9rem;
+    background-color: #bcbec3;
+    margin-bottom: 0.26rem;
+}
+.email {
+    padding-right: 0;
+}
+.phone:hover {
+    fill: #1faae2;
+  }
+.placeholder:hover {
+    fill: #1faae2;
+}
+.email:hover {
+    fill: #1faae2;
+}
+.icons span{
+    position: absolute;
+    visibility: hidden;
+    display: block;
+    background-image: url("back.png");
+    width: 8.5rem;
+    height: 2.3rem;
+    background-size: 8.5rem 2.3rem;;
+    color: #6d6e71;
+    font-size: 0.6rem;
+    text-align: center;
+    line-height: 1.8rem;
+}
+.phone:hover span {
+    visibility: visible;
+    top: -0.8rem;
+    right: 1.6rem;
+}
+.placeholder:hover span {
+    visibility: visible;
+    top: -0.8rem;
+    right: -1rem;
+}
+.email:hover span {
+    visibility: visible;
+    top: -0.8rem;
+    right: -3.6rem;
+}
+
+/*.........................NAV...........................*/
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:  43.8rem;
+}
+.nav__logo_toggle {
+    visibility: hidden;
+}
+.fa-bars {
+    visibility: hidden;
+}
+.nav__menu {
+    display: flex;
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #6d6e71;
+}
+.nav__menu__items {
+    position: relative;
+    padding: 1.3rem 0.75rem;
+    border-right: 1px solid #eceef4;
+}
+.nav__menu__items:last-child {
+    border-right: none;
+}
+.nav__menu__items a {
+    display: block;
+    position: relative;
+    color: inherit;
+    text-decoration: none;
+}
+.nav__menu__items:hover {
+    color: #1faae2;
+}
+.nav__menu__items::after {
+     visibility: hidden;
+     content: '';
+     position: absolute;
+     margin-left: calc(50% - 2rem);
+     bottom: 0;
+     border: 1.3rem solid transparent;
+     border-bottom: 0.4rem solid #1faae2;
+ }
+.nav__menu__items:hover::after {
+    visibility: visible;
+}
+
+.nav__search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.6rem;
+    color: #6d6e71;
+}
+.nav__search img {
+    margin-right: 0.4rem;
+    width: 1rem;
+    height: auto;
+}
+
+/*.........................Main...........................*/
+.box_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 33.2rem;
+    background-image: url("iback.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 75rem auto;
+}
+.main {
+    width: 43.8rem;
+    height: 11.2rem;
+    padding-bottom: 8rem;
+}
+.main_text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+.main_text div {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 1.3rem;
+}
+.main_text span {
+    font-size: 5.6rem;
+    font-weight: 700;
+    color: #bbedff;
+}
+.main_text p:first-child {
+    font-size: 1.7rem;
+    font-weight: 300;
+}
+.main_text p:last-child {
+    position: absolute;
+    top: 0.75rem;
+    text-shadow: 1px 1px 8px rgba(1, 1, 1, 0.15);
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+.main_image {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3.6rem;
+}
+.main_image img {
+    margin: 0.4rem;
+}
+.img_1, .img_2 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 12rem;
+    height: 9rem;
+    background-image: url("design2.png");
+    background-size: contain;
+}
+.img_1 div, .img_2 div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2.4rem;
+    font-size: 0.5rem;
+    font-weight: 400;
+    line-height: 2.2rem;
+}
+.img_1 div {
+    color: #ffffff;
+    background: #8aca51;
+    opacity: 0.5;
+}
+.img_2 {
+    background-image: url("design.png");
+}
+.img_2 div {
+    color: #cc9800;
+    background: #feeb75;
+    opacity: 0.5;
+}
+.chevron-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4.2rem;
+    height: 9rem;
+    background: #f4f4f4;
+}
+.fa-chevron-right i {
+    font-size: 1.6rem;
+    color: #d4d4d4;
+}
+
+/*.........................ARTICLES...........................*/
+.box_article {
+    width: 43.8rem;
+}
+.article {
+    display: flex;
+    justify-content: space-between;
+}
+.section {
+    display: flex;
+    width: 45%;
+}
+.section img {
+    margin: 0.75rem;
+    width: 4rem;
+}
+.text span {
+    display: block;
+    margin-top: 0.75rem;
+    font-size: 1rem;
+    color: #6d6e71;
+    font-weight: 700;
+    line-height: 0.4rem;
+}
+.text p {
+    text-align: justify;
+    font-size: 0.6rem;
+    color: #6d6e71;
+    font-weight: 300;
+    line-height: 0.9rem;
+}

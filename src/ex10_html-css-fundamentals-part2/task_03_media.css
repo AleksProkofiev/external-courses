@@ -1,0 +1,179 @@
+@media only screen and (max-width : 768px) {
+    html, body {
+        font-size: 104%;
+    }
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 46rem;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    /*.........................HEADER...........................*/
+    .box_header {
+        display: none;
+    }
+    .logo {
+        display: none;
+    }
+
+    /*.........................NAV...........................*/
+    .nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+    }
+    .nav__menu-fa-bars {
+        visibility: visible;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        width: 33%;
+
+    }
+    .fa-bars {
+        visibility: visible;
+        top: -1rem;
+        color: #1faae2;
+        font-size: 2.5rem;
+    }
+    .nav_logo_toggle {
+        visibility: visible;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .nav_logo_toggle div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 5rem; /*изменить размер*/
+        height: 2rem;
+        background-image: url("logosmall.png");
+        background-size: 5rem auto;
+        background-repeat: no-repeat;
+    }
+    .nav_logo_toggle a {
+        position: absolute;
+        top: -0.5rem;
+        text-decoration: none;
+        color: #3687c4;
+        font-size: 1.3rem;
+        font-weight: 400;
+        line-height: 2.1rem;
+    }
+    .nav__menu {
+        display: none;
+        width: 4rem;
+        height: 3.1rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: #6d6e71;
+    }
+    .nav__search {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 33%;
+        color: #6d6e71;
+        line-height: 3.1rem;
+    }
+    .nav__search img {
+        margin-right: 0.6rem;
+        width: 0.75rem;
+        height: auto;
+    }
+
+    /*.........................Main...........................*/
+    .box_main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 25.5rem;
+        background-image: url("iback-tablet.png");
+        background-repeat: no-repeat;
+        background-position: center top;
+        background-size: 100% auto;
+    }
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+    }
+    .main_text {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .main_text div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-bottom: 5.6rem;
+    }
+    .main_text span {
+        font-size: 4rem;
+        font-weight: 700;
+        color: #bbedff;
+    }
+    .main_text p:first-child {
+        font-size: 1.5rem;
+        font-weight: 300;
+    }
+    .main_text p:last-child {
+        position: absolute;
+        top: 0.3rem;
+        left: -0.5rem;
+        text-shadow: 1px 1px 0.5rem rgba(1, 1, 1, 0.15);
+        font-size: 2rem;
+        font-weight: 700;
+    }
+    .main_image {
+        display: none;
+        justify-content: flex-end;
+        margin-top: 8.1px;
+    }
+
+    /*.........................ARTICLES...........................*/
+    .box_article {
+        width: 100%;
+    }
+    .article {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .section {
+        display: flex;
+        width: 70%;
+        margin-top: 1rem;
+        padding-right: 1.25rem;
+    }
+    .section img {
+        margin: 0.75rem;
+        width: 3.5rem;
+
+    }
+    .text span {
+        display: block;
+        margin-top: 1.2rem;
+        font-size: 1rem;
+        color: #6d6e71;
+        font-weight: 700;
+        line-height: 0.4rem;
+    }
+    .text p {
+        text-align: justify;
+        font-size: 0.6rem;
+        color: #6d6e71;
+        font-weight: 300;
+        line-height: 0.9rem;
+    }
+}
