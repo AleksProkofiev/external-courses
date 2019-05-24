@@ -1,0 +1,113 @@
+* {
+    vertical-align: baseline;
+    font-weight: inherit;
+    font-family: 'Open Sans', sans-serif;
+    font-style: inherit;
+    font-size: 100%;
+    border: 0 none;
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    margin: 100px auto;
+}
+
+/*...................................HEADER................................*/
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f4f4f4;
+    width: 100%;
+    padding: 10px;
+}
+
+/*...................................NAV................................*/
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+.location, .category {
+    width: 40%;
+    background: #f4f4f4;
+    border-radius: 20px;
+    padding: 5px;
+}
+
+i {
+    display: block;
+    margin: 0 10px ;
+    color: #9A9EA9;
+    font-size: 20px;
+}
+
+.fa-bars {
+    font-size: 20px;
+}
+
+.location p , .category p {
+    display: inline;
+    margin-left: 10px;
+    font-size: 14px;
+    color: #9A9EA9;
+}
+
+
+/*...................................FORM................................*/
+
+
+.form {
+    width: 100%;
+}
+
+label {
+    position: relative;
+}
+
+input {
+    font-size: 14px;
+    padding-top: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+input:focus + span,  input:valid + span{
+    color: deepskyblue;
+    top: -15px;
+    font-size: 10px;
+    transition: 0.2s ease all;
+}
+
+#price {
+    width: 100px;
+    border-right: 1px solid #ccc;
+}
+
+#specLoc {
+    width: 295px;
+}
+
+span {
+    display: block;
+    position: absolute;
+    top: 1px;
+    left: 5px;
+    font-size: 16px;
+    color: #A4A4A4;
+    cursor: text;
+}
