@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Library</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="assets/fonts/Proxima%20Nova/stylesheet.css">
+    <link type="text/css" rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<body>
+    <!--/*...................................HEADER................................*/-->
+    <header class="header" >
+        <div class="help"><a href="#">Help Center</a></div>
+        <div class="dot"></div>
+        <div class="support"><a href="#">Our Support</a></div>
+        <div class="help_name">
+            <img src="assets/img/avatar-01.png" alt="">
+            <p><a href="#">John Doe</a></p>
+            <i class="fa fa-check-circle" aria-hidden="true"></i>
+        </div>
+    </header>
+    <!--/*...................................MAIN................................*/-->
+    <main class="main" >
+        <aside class="sidebar" >
+            <div class="sidebar__add">
+                <button class="add__button">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <span>add a book</span>
+                </button>
+            </div>
+            <div class="sidebar__nav" >
+                <div class="nav__elem">
+                    <i class="fa fa-book" aria-hidden="true"></i>
+                    <span>Now Reading</span>
+                </div>
+                <div class="nav__elem">
+                    <i class="fa fa-globe" aria-hidden="true"></i>
+                    <span>Browse</span>
+                </div>
+                <div class="nav__elem">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span>Buy Books</span>
+                </div>
+                <div class="nav__elem">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <span>Favourite Books</span>
+                </div>
+                <div class="nav__elem">
+                    <i class="fa fa-th-list" aria-hidden="true"></i>
+                    <span>Wishlist</span>
+                </div>
+                <div class="nav__elem">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span>History</span>
+                </div>
+            </div>
+            <div class="sidebar__user-category">
+                <div class="user-category__elem">
+                    <i class="fa fa-circle fa-circle_1" aria-hidden="true"></i>
+                    <span class="must_read_titles">Must Read Titles</span>
+                </div>
+                <div class="user-category__elem">
+                    <i class="fa fa-circle fa-circle_2" aria-hidden="true"></i>
+                    <span class="best_of_list">Best Of List</span>
+                </div>
+                <div class="user-category__elem">
+                    <i class="fa fa-circle fa-circle_3" aria-hidden="true"></i>
+                    <span class="classic_novels">Classic Novels</span>
+                </div>
+                <div class="user-category__elem">
+                    <i class="fa fa-circle fa-circle_4" aria-hidden="true"></i>
+                    <span class="non_fiction">Non Fiction</span>
+                </div>
+            </div>
+            <div class="sidebar__history_list"></div>
+        </aside>
+
+        <section class="content">
+            <header class="content_header">Browse Available Books</header>
+            <div class="filter_bar">
+                <div class="filter_bar__menu">
+                <a href="#" id="all_books">All Books</a>
+                <a href="#" id="most_recent">Most Recent</a>
+                <a href="#" id="most_popular">Most Popular</a>
+                <a href="#" id="free_books">Free Books</a>
+                </div>
+                <div class="filter filter_bar__filter">
+                        <label for="filter">
+                            <input type="text" id="filter" placeholder="Enter Keywords">
+                        </label>
+                    <button type="submit" id="filter_button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <i class="fa fa-times hide" id="close" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <article class="content_library"></article>
+        </section>
+    </main>
+
+    <!--/*...................................FOOTER................................*/-->
+    <div class="footer" >
+        <div class="question"><a href=""><i class="fa fa-question-circle" aria-hidden="true"></i></a></div>
+        <div class="settings"><a href=""><i class="fa fa-cog" aria-hidden="true"></i></a></div>
+    </div>
+
+    <!--/*...................................POPUP................................*/-->
+    <div class="container_popUp-addBook">
+        <div class="popUp-addBook">
+            <i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i>
+            <form action="#" method="GET" name="book">
+                <label>Title:<input type="text" id="title" name="title" placeholder="Enter Title"></label>
+                <label>Author:<input type="text" id="firstName" name="firstName" placeholder="Enter First Name"></label>
+                <input type="text" id="lastName" name="lastName" placeholder="Enter Last Name">
+                <label>Cost:<input type="text" id="cost" name="cost" placeholder="Enter Cost"></label>
+                <label>Image:<input type="url" id="image_url" name="image_url" value="assets/img/by_default.jpg" placeholder="Enter Url">
+                </label>
+                <div class="rate"><span>Rating:</span>
+                    <div class="rating">
+                        <div class="rating_star active_star" data-elem="1"></div>
+                        <div class="rating_star" data-elem="2"></div>
+                        <div class="rating_star" data-elem="3"></div>
+                        <div class="rating_star" data-elem="4"></div>
+                        <div class="rating_star" data-elem="5"></div>
+                    </div>
+                    <input type="text" name="rating" value="1" id="rating">
+                </div>
+                <label>Categories:
+                    <input checked type="checkbox" class="checkbox" name="category" value="must_read">Must read
+                    <input type="checkbox" class="checkbox" name="category" value="best">Best
+                    <input type="checkbox" class="checkbox" name="category" value="non_fiction">Non fiction
+                </label>
+                <p class="prevent hide">* Please, check all fields and enter numbers in the Сost field</p>
+                <input type="button" value="Add a book" class="submit">
+            </form>
+        </div>
+    </div>
+
+    <script src="js/utils/first_chat_in_upper_case.js"></script>
+    <script src="js/utils/debounce.js"></script>
+    <script src="js/utils/call_API.js"></script>
+    <script src="js/utils/time_different.js"></script>
+    <script src="js/utils/unique_id.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
