@@ -1,150 +1,158 @@
-let view = {
+function View() {
+  this.$library = document.querySelector(".content_library");
+  this.$categories = document.querySelector(".filter_bar__menu");
+  this.$filterButton = document.querySelector("#filter_button");
+  this.$filterInput = document.querySelector("#filter");
+  this.$containerPopUp = document.querySelector(".container_popUp-addBook");
+  this.$addRating = document.querySelector(".rating");
+  this.$addBookBtn = document.querySelector(".add__button");
+  this.$pushBookBtn = document.querySelector(".submit");
+  this.$addBookCategories = document.querySelectorAll("input.checkbox:checked");
+  this.$addBookRating = document.querySelector("#rating");
+  this.$closePopUp = document.querySelector(".fa-times-circle-o");
+  this.$prevent = document.querySelector(".prevent");
+  this.$form = document.forms.book;
+  this.$historyList = document.querySelector(".sidebar__history_list");
+}
 
-  $library: document.querySelector(".content_library"),
-  $categories: document.querySelector(".filter_bar__menu"),
-  $filterButton: document.querySelector("#filter_button"),
-  $filterInput: document.querySelector("#filter"),
-  $containerPopUp: document.querySelector(".container_popUp-addBook"),
-  $addRating: document.querySelector(".rating"),
-  $addBookBtn: document.querySelector(".add__button"),
-  $pushBook: document.querySelector(".submit"),
-  $inputRating: document.querySelector("#rating"),
-  $closePopUp: document.querySelector(".fa-times-circle-o"),
-  $prevent: document.querySelector(".prevent"),
-  $form: document.forms.book,
-  $historyList: document.querySelector(".sidebar__history_list"),
+View.prototype._clearAddBookField = function() {
+  this.$form.elements.title.value = "";
+  this.$form.elements.firstName.value = "";
+  this.$form.elements.lastName.value = "";
+  this.$form.elements.cost.value = "";
+};
 
-  _clearHistoryList: function() {
-    view.$historyList.innerHTML = "";
-  },
+View.prototype._showPrevent = function() {
+  this.$prevent.classList.remove("hide");
+};
 
-  _renderHistoryList: function(arrayHistory) {
-    view._clearHistoryList();
-    arrayHistory.forEach(function (elem) {
-      view._createDOMHistoryItem(elem);
+View.prototype._getDataAddBook = function() {
+  let dataAddBook = {
+    cost: this.$form.elements.cost.value,
+    title: this.$form.elements.title.value,
+    author: {firstName: this.$form.elements.firstName.value,
+             lastName: this.$form.elements.lastName.value},
+    image_url: this.$form.elements.image_url.value,
+    rating: this.$form.elements.rating.value,
+    categories: Array.from(this.$addBookCategories).map(function (elem) {
+      return elem.value;
+    }),
+  };
+  return dataAddBook;
+};
+
+View.prototype._showAddBookRating = function(value) {
+  this.$addBookRating.setAttribute("value", value);
+};
+
+
+View.prototype._showPopUp = function() {
+  this.$containerPopUp.classList.toggle("show");
+};
+
+View.prototype._clearHistoryList = function() {
+  this.$historyList.innerHTML = "";
+};
+
+View.prototype._renderHistoryList = function(arrayHistory) {
+  this._clearHistoryList();
+  arrayHistory.forEach((elem) => {
+    this._createDOMHistoryItem(elem);
+  })
+};
+
+View.prototype._createDOMHistoryItem = function (elem) {
+  let flag = elem.type;
+  let action = this.$historyList.appendChild(document.createElement("div"));
+  action.classList.add("history_list__elem");
+  switch (flag) {
+    case "addBook":
+      action.innerHTML = "<p>You added<span>" + elem.details[0] + "</span>"
+        + "<p>by<span>" + elem.details[1] + " " + elem.details[2] + "</span></p>"
+        + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
+      break;
+
+    case "filter":
+      action.innerHTML = "<p>You were looking for books marked<span>" + elem.details + "</span>"
+        + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
+      break;
+
+    case "filterSymbols":
+      action.innerHTML = "<p>You searched for the book characters<span>" + elem.details + "</span>"
+        + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
+      break;
+
+    case "setRating":
+      action.innerHTML = "<p>You changed the rating of the book<span>" + elem.details[0] + "</span>"
+        + "<p>to<span>" + elem.details[1] + "</span></p>"
+        + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
+      break;
+    default:
+      console.log("error");
+  }
+};
+
+View.prototype._showIconClear = function() {
+  this.$filterButton.children[0].style.visibility = "hidden";
+  this.$filterButton.children[1].style.visibility = "visible";
+};
+
+View.prototype._hideDeleteIcon = function() {
+  this.$filterButton.children[0].style.visibility = "visible";
+  this.$filterButton.children[1].style.visibility = "hidden";
+};
+
+View.prototype._clearInput = function() {
+  this.$filterInput.value = "";
+};
+
+View.prototype._clearLibrary = function() {
+  this.$library.innerHTML = "";
+};
+
+View.prototype._showMessageNotFound = function() {
+  this.$library.innerHTML = "No items match the search..."
+};
+
+View.prototype._renderBooks = function (arrayBooks) {
+  this._clearLibrary();
+  if (Array.isArray(arrayBooks)) {
+    if (arrayBooks.length === 0) {
+      this._showMessageNotFound();
+      return;
+    }
+    arrayBooks.forEach((item) => {
+      this._createDOMBook(item);
     })
-  },
+  }
+};
 
-  _createDOMHistoryItem: function (elem) {
-    let flag = elem.type;
-    let action = view.$historyList.appendChild(document.createElement("div"));
-    action.classList.add("history_list__elem");
-    switch (flag) {
-      case "addBook":
-        action.innerHTML = "<p>You added<span>" + elem.details[0] + "</span>"
-          + "<p>by<span>" + elem.details[1] + " " + elem.details[2] + "</span></p>"
-          + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
-        break;
+View.prototype._createDOMBook = function(item) {
 
-      case "filter":
-        action.innerHTML = "<p>You were looking for books marked<span>" + elem.details + "</span>"
-          + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
-        break;
+  let book = this.$library.appendChild(document.createElement("div"));
+  book.classList.add("library_item");
+  book.id = item.id;
 
-      case "filterSymbols":
-        action.innerHTML = "<p>You searched for the book characters<span>" + elem.details + "</span>"
-          + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
-        break;
+  let img = book.appendChild(document.createElement("img"));
+  img.classList.add("library_item__img");
+  img.src = item.image_url;
 
-      case "setRating":
-        action.innerHTML = "<p>You changed the rating of the book<span>" + elem.details[0] + "</span>"
-          + "<p>to<span>" + elem.details[1] + "</span></p>"
-          + "<p><span>" + getTimeDifference(elem.time) + "</span></p>";
-        break;
-      default:
-        console.log("error");
+  let nameBook = book.appendChild(document.createElement("p"));
+  nameBook.classList.add("library_item__name");
+  nameBook.innerHTML = item.title;
+
+  let nameAuthor = book.appendChild(document.createElement("p"));
+  nameAuthor.classList.add("library_item__author");
+  nameAuthor.innerHTML = "by " + item.author.firstName + " " + item.author.lastName;
+
+  let rating = book.appendChild(document.createElement("div"));
+  rating.classList.add("rating");
+  for (let i = 0; i < 5; i++) {
+    let ratingStar = rating.appendChild(document.createElement("div"));
+    ratingStar.classList.add("rating_star");
+    ratingStar.setAttribute("data-elem", i + 1);
+    if (i < item.rating) {
+      ratingStar.classList.add("active_star");
     }
-  },
-
-  _clearAddBookForm: function() {
-    view.$form.elements.title.value = "";
-    view.$form.elements.firstName.value = "";
-    view.$form.elements.lastName.value = "";
-    view.$form.elements.cost.value = "";
-  },
-
-  _showPrevent: function() {
-    view.$prevent.classList.add("hide");
-  },
-
-  _hidePrevent: function() {
-    view.$prevent.classList.remove("hide");
-  },
-
-  _showBookRating: function (event) {
-  let dataElem = +event.target.getAttribute("data-elem");
-  view.$inputRating.setAttribute("value", dataElem);
-  },
-
-  _showPopUp: function () {
-  view.$containerPopUp.classList.toggle("show");
-  },
-
-  _renderBooks: function (arrayBooks) {
-    view._clearLibrary();
-    if (Array.isArray(arrayBooks)) {
-      if (arrayBooks.length === 0) {
-        view._showMessageNotFound();
-        return;
-      }
-      arrayBooks.forEach((function (item) {
-        view._createDOMBook(item);
-      }))
-    }
-  },
-
-  _createDOMBook: function(item) {
-
-    let book = view.$library.appendChild(document.createElement("div"));
-    book.classList.add("library_item");
-    book.id = item.id;
-
-    let img = book.appendChild(document.createElement("img"));
-    img.classList.add("library_item__img");
-    img.src = item.image_url;
-
-    let nameBook = book.appendChild(document.createElement("p"));
-    nameBook.classList.add("library_item__name");
-    nameBook.innerHTML = item.title;
-
-    let nameAuthor = book.appendChild(document.createElement("p"));
-    nameAuthor.classList.add("library_item__author");
-    nameAuthor.innerHTML = "by " + item.author.firstName + " " + item.author.lastName;
-
-    let rating = book.appendChild(document.createElement("div"));
-    rating.classList.add("rating");
-    rating.addEventListener("mouseover", debounce(model.getRating, 50));
-    rating.addEventListener("click", model.setRating);
-
-    for (let i = 0; i < 5; i++) {
-      let ratingStar = rating.appendChild(document.createElement("div"));
-      ratingStar.classList.add("rating_star");
-      ratingStar.setAttribute("data-elem", i + 1);
-      if (i < item.rating) {
-        ratingStar.classList.add("active_star");
-      }
-    }
-  },
-
-  _clearLibrary: function () {
-    view.$library.innerHTML = "";
-  },
-
-  _clearInput: function() {
-    view.$filterInput.value = "";
-  },
-
-  _showIconClear: function () {
-    view.$filterButton.children[0].style.visibility = "hidden";
-    view.$filterButton.children[1].style.visibility = "visible";
-  },
-
-  _hideDeleteIcon: function () {
-    view.$filterButton.children[0].style.visibility = "visible";
-    view.$filterButton.children[1].style.visibility = "hidden";
-  },
-
-  _showMessageNotFound: function () {
-  view.$library.innerHTML = "No items match the search..."
   }
 };

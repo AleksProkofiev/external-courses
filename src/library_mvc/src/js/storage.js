@@ -1,17 +1,17 @@
-  function Store(storeKey) {
-    let key = storeKey,
-      object;
-    this.set = function(value) {
-      object = JSON.stringify(value);
-      localStorage.setItem(key, object);
-    };
-    this.get = function() {
-      return JSON.parse(localStorage.getItem(key))
-    };
-    this.clear = function() {
-      localStorage.removeItem(key);
-    };
-  }
+function Store(storeKey) {
+  this.key = storeKey;
+  this.object = null;
+}
 
-  let userStore = new Store("userHistory");
+Store.prototype.set = function(value) {
+  this.object = JSON.stringify(value);
+  localStorage.setItem(this.key, this.object);
+};
 
+Store.prototype.get = function() {
+  return JSON.parse(localStorage.getItem(this.key));
+};
+
+Store.prototype.clear = function() {
+  localStorage.removeItem(this.key);
+};

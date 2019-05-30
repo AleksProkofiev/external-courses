@@ -106,9 +106,7 @@ body {
     height: 7.5rem;
 }
 .add__button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     width: 9rem;
     height: 2.75rem;
     border-radius: 4px;
@@ -116,15 +114,24 @@ body {
     font-size: 14px;
     font-weight: 700;
     color: #ffffff;
-    text-transform: uppercase;
-    z-index: 10;
+}
+.add__button:before {
+    position: absolute;
+    font-family: "FontAwesome", sans-serif;
+    content: "\f067";
+    color: #ffffff;
+    top: 14px;
+    left: 20px;
+}
+.add__button:after {
+    position: absolute;
+    content: "ADD A BOOK";
+    color: #ffffff;
+    top: 14px;
+    right: 15px;
 }
 .add__button:hover {
     cursor: pointer;
-}
-.add__button i {
-    margin-right: 10px;
-    font-size: 18px;
 }
 .sidebar__nav {
     display: flex;
