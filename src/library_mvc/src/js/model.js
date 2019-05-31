@@ -1,14 +1,20 @@
 function Model(userStore) {
-  this.books = [];
-  this.state = [];
-  this.history = [];
-  this.flag = false;
   this.userStore = userStore;
+  this.books = null;
+  this.state = {
+  books: null,
+  history: null,
+  search: null,
+  curentFilter: null,
+
+  }
+  // this.flag = false;
+
 }
 
 Model.prototype.getHistory = function() {
   let historyList = [];
-  let sortedArray = this.history.sort(function (a, b) {
+  let sortedArray = this.state.history.sort(function (a, b) {
     return b.time - a.time
   });
   if (sortedArray.length < 3) {
@@ -30,43 +36,42 @@ Model.prototype.setActionHistory = function(action, details) {
     type: action,
     details: details
     };
-    this.history.push(historyElement);
+    this.state.history.push(historyElement);
     if (this.userStore.get() === null) {
-      this.userStore.set(this.history);
+      this.userStore.set(this.state.history);
     } else {
-      this.history = this.userStore.get();
-      this.history.push(historyElement);
-      this.userStore.set(this.history);
+      this.state.history = this.userStore.get();
+      this.state.history.push(historyElement);
+      this.userStore.set(this.state.history);
     }
   } else {
     if (this.userStore.get() !== null) {
-      this.history = this.userStore.get();
+      this.state.history = this.userStore.get();
     }
   }
 };
 
-Model.prototype.createBook = function({elem, value}) {
+Model.prototype.createBook = function(elem) {
   let book = {
-  id: (elem) ? elem.id : getUniqueId(),
-  title: (elem) ? elem.title : getFirstCharInUpperCase(value.title),
-  author: {firstName: (elem) ? elem.author.firstName : getFirstCharInUpperCase(value.author.firstName),
-            lastName: (elem) ? elem.author.lastName : getFirstCharInUpperCase(value.author.lastName)},
-  cost: (elem) ? elem.cost : value.cost,
-  image_url: (elem) ? elem.image_url : value.image_url,
-  rating: (elem) ? elem.rating : value.rating,
-  categories: (elem) ? elem.rating : value.categories,
-  createdAt: (elem) ? elem.createdAt : new Date().getTime(),
-  updatedAt: (elem) ? elem.updatedAt : new Date().getTime()
+  id: elem.id || getUniqueId(),
+  title: elem.title,
+  author: {firstName: elem.author.firstName,
+            lastName: elem.author.lastName},
+  cost: elem.cost,
+  image_url: elem.image_url,
+  rating: elem.rating,
+  categories: elem.rating,
+  createdAt: elem.createdAt || new Date().getTime(),
+  updatedAt: elem.updatedAt || new Date().getTime()
   };
   this.books.push(book);
 };
 
 Model.prototype.changePropertyBook = function(id, property, value) {
-  for (let i = 0; i < this.books.length; i++) {
-    if (this.books[i].id === id) {
-      this.books[i][property] = value;
-    }
-  }
+  let requiredBook = this.books.findIndex((elem) => {
+    return elem.id === id;
+  })
+  this.books[requiredBook][property] = value;
 };
 
 Model.prototype.getData = function(typeData) {
@@ -74,7 +79,7 @@ Model.prototype.getData = function(typeData) {
     case "books":
       return this.books;
     case "state":
-      return this.state;
+      return this.state.books;
     default:
       console.log("error");
   }
@@ -86,43 +91,44 @@ Model.prototype.setBooks = function(value) {
 };
 
 Model.prototype.getFilteredBooks = function(value) {
-  switch (value) {
+  this.state.curentFilter = value;
+  switch (this.state.curentFilter) {
     case "all_books":
     case "filter":
-      this.flag = true;
-      this.state = this.books.sort(function (a, b) {
+      this.state.search = true;
+      this.state.books = this.books.sort(function (a, b) {
         return a.id - b.id
       });
       break;
     case "most_recent":
-      this.flag = true;
-      this.state = this.books.sort(function (a, b) {
+      this.state.search = true;
+      this.state.books = this.books.sort(function (a, b) {
         return b.updatedAt - a.updatedAt
       });
       break;
     case "most_popular":
-      this.flag = true;
-      this.state = this.books.sort(function (a, b) {
+      this.state.search = true;
+      this.state.books = this.books.sort(function (a, b) {
         return b.rating - a.rating
       });
       break;
     case "free_books":
       this.flag = true;
-      this.state = this.books.filter(function (item) {
+      this.state.books = this.books.filter(function (item) {
         return item.cost <= 0;
       });
       break;
     case "close":
       return this.books;
     case "":
-      return this.state;
+      return this.state.books;
     default:
-      var collection = (this.flag) ? this.state : this.books;
+      var collection = (this.state.search) ? this.state.books : this.books;
       return collection.filter(function (item) {
         return (item.author.firstName.toLowerCase().indexOf(value) > -1
           || item.author.lastName.toLowerCase().indexOf(value) > -1
           || item.title.toLowerCase().indexOf(value) > -1)
       });
   }
-  return this.state;
+  return this.state.books;
 };

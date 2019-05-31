@@ -3,26 +3,25 @@ function Controller(model, view) {
   this.view = view;
 }
 
-Controller.prototype.dispatcherHistory = function (action, details) {
+Controller.prototype.dispatchToHistory = function (action, details) {
   this.model.setActionHistory(action, details);
   this.view._renderHistoryList(this.model.getHistory());
 };
 
-Controller.prototype.addBookRating = function (event) {
-  let rating = +event.target.getAttribute("data-elem");
-  this.view._showAddBookRating(rating);
+Controller.prototype.addBookRating = function (value) {
+  this.view._showAddBookRating(value);
 };
 
-Controller.prototype.addNewBook = function(event) {
-  if (event.target.classList.contains("add__button")) {
+Controller.prototype.addNewBook = function(value) {
+  if (value === "add__button") {
     this.view._showPopUp();
   } else {
     let temp = this.view._getDataAddBook();
     if (this.validateAddBook(temp)) {
-      this.model.createBook({value: temp});
+      this.model.createBook(temp);
       this.view._renderBooks(this.model.getData("books"));
       this.view._clearAddBookField();
-      this.dispatcherHistory("addBook", [temp.title, temp.author.firstName, temp.author.lastName]);
+      this.dispatchToHistory("addBook", [temp.title, temp.author.firstName, temp.author.lastName]);
     } else {
       this.view._showPrevent();
     }
@@ -43,30 +42,19 @@ Controller.prototype.clearFilterInputField = function () {
   this.view._hideDeleteIcon();
 };
 
-Controller.prototype.filterBooks = function(event) {
-  let currentFilter = event.target.value || event.target.id ;
-  if (event.target.value === "") {
+Controller.prototype.filterBooks = function(value) {
+  let search = value;
+  if (search === "filter") {
     this.view._hideDeleteIcon();
-  }
-  if (event.target.value) {
+  } else if (search !== "filter" && search !== "all_books" && search !== "most_recent"
+    && search !== "most_popular" && search !== "free_books") {
     this.view._showIconClear();
   }
-  let filteredBooks = this.model.getFilteredBooks(currentFilter);
+  let filteredBooks = this.model.getFilteredBooks(search);
   this.view._renderBooks(filteredBooks);
-  this.dispatcherHistory("filter", currentFilter);
+  this.dispatchToHistory("filter", search);
 };
 
-Controller.prototype.ratingHover = function(event) {
-  if (event.target.classList.contains("rating_star")) {
-    let dataElem = event.target.getAttribute("data-elem");
-    for (let i = 0; i < 5; i++) {
-      event.target.parentElement.children[i].classList.remove("active_star");
-    }
-    for (let j = 0; j <= dataElem - 1; j++) {
-      event.target.parentElement.children[j].classList.add("active_star");
-    }
-  }
-};
 
 Controller.prototype.setRating = function(event) {
   if (event.target.classList.contains("rating_star")) {

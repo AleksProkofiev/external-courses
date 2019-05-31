@@ -13,6 +13,13 @@ function View() {
   this.$prevent = document.querySelector(".prevent");
   this.$form = document.forms.book;
   this.$historyList = document.querySelector(".sidebar__history_list");
+
+  this.$closePopUp.addEventListener("click", () => {
+    this._showPopUp();
+  });
+  this.$library.addEventListener("mouseover", () => {
+    this.ratingHover(event);
+  });
 }
 
 View.prototype._clearAddBookField = function() {
@@ -29,9 +36,9 @@ View.prototype._showPrevent = function() {
 View.prototype._getDataAddBook = function() {
   let dataAddBook = {
     cost: this.$form.elements.cost.value,
-    title: this.$form.elements.title.value,
-    author: {firstName: this.$form.elements.firstName.value,
-             lastName: this.$form.elements.lastName.value},
+    title: getFirstCharInUpperCase(this.$form.elements.title.value),
+    author: {firstName: getFirstCharInUpperCase(this.$form.elements.firstName.value),
+             lastName: getFirstCharInUpperCase(this.$form.elements.lastName.value)},
     image_url: this.$form.elements.image_url.value,
     rating: this.$form.elements.rating.value,
     categories: Array.from(this.$addBookCategories).map(function (elem) {
@@ -153,6 +160,18 @@ View.prototype._createDOMBook = function(item) {
     ratingStar.setAttribute("data-elem", i + 1);
     if (i < item.rating) {
       ratingStar.classList.add("active_star");
+    }
+  }
+};
+
+View.prototype.ratingHover = function(event) {
+  if (event.target.classList.contains("rating_star")) {
+    let dataElem = event.target.getAttribute("data-elem");
+    for (let i = 0; i < 5; i++) {
+      event.target.parentElement.children[i].classList.remove("active_star");
+    }
+    for (let j = 0; j <= dataElem - 1; j++) {
+      event.target.parentElement.children[j].classList.add("active_star");
     }
   }
 };
