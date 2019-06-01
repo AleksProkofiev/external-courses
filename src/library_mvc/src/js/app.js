@@ -17,29 +17,28 @@
   Library.prototype.bind = function () {
     const delayValue = 500;
     this.view.$addBookBtn.addEventListener("click", () => {
-      this.controller.addNewBook(event.target.className);
+      let buttonType = event.target.className;
+      this.controller.addNewBook(buttonType);
     });
     this.view.$pushBookBtn.addEventListener("click", () => {
-      this.controller.addNewBook(event.target.className);
+      let buttonType = event.target.className;
+      this.controller.addNewBook(buttonType);
     });
-    this.view.$addRating.addEventListener("mouseover", debounce((event) => {
-      this.view.ratingHover(event);
-    },delayValue));
     this.view.$addRating.addEventListener("click", () => {
-
-      this.controller.addBookRating(+event.target.getAttribute("data-elem"));
+      let rating = +event.target.getAttribute("data-elem");
+      this.controller.addBookRating(rating);
     });
     this.view.$library.addEventListener("click", () => {
-      this.controller.setRating(event);
+      let clickElem = event;
+      this.controller.setRating(clickElem);
     });
-    // this.view.$library.addEventListener("mouseover", () => {
-    //   this.controller.ratingHover(event.target.className);
-    // });
     this.view.$categories.addEventListener("click", () => {
-      this.controller.filterBooks(event.target.value || event.target.id);
+      let currentFilter = event.target.value || event.target.id;
+      this.controller.filterBooks(currentFilter);
     });
     this.view.$filterInput.addEventListener("input", debounce((event) => {
-      this.controller.filterBooks(event.target.value || event.target.id);
+      let currentFilter = event.target.value || event.target.id;
+      this.controller.filterBooks(currentFilter);
     },delayValue));
     this.view.$filterButton.addEventListener("click", () => {
       this.controller.clearFilterInputField();

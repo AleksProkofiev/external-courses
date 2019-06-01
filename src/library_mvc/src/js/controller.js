@@ -55,20 +55,12 @@ Controller.prototype.filterBooks = function(value) {
   this.dispatchToHistory("filter", search);
 };
 
-
-Controller.prototype.setRating = function(event) {
-  if (event.target.classList.contains("rating_star")) {
-    let rating = event.target.getAttribute("data-elem");
-    let id = +event.target.parentElement.parentElement.getAttribute("id");
-    this.model.changePropertyBook(id, "rating", rating);
-    this.view._renderBooks(this.model.getData("books"));
-    for (let i = 0; i < 5; i++) {
-      event.target.parentElement.children[i].classList.remove("active_star");
-    }
-    for (let j = 0; j <= rating - 1; j++) {
-      event.target.parentElement.children[j].classList.add("active_star");
-    }
-  }
+Controller.prototype.setRating = function(value) {
+  let bookData = this.view.getRating(value);
+  let currentBook = this.model.getBookById(bookData.id);
+  this.model.changePropertyBook(bookData.id, "rating", bookData.rating);
+  this.view._renderBooks(this.model.getData("books"));
+  this.dispatchToHistory("setRating", [currentBook.title, currentBook.rating]);
 };
 
 Controller.prototype.fetchData = function () {

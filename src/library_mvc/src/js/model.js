@@ -6,10 +6,7 @@ function Model(userStore) {
   history: null,
   search: null,
   curentFilter: null,
-
   }
-  // this.flag = false;
-
 }
 
 Model.prototype.getHistory = function() {
@@ -52,19 +49,23 @@ Model.prototype.setActionHistory = function(action, details) {
 };
 
 Model.prototype.createBook = function(elem) {
-  let book = {
-  id: elem.id || getUniqueId(),
-  title: elem.title,
-  author: {firstName: elem.author.firstName,
-            lastName: elem.author.lastName},
-  cost: elem.cost,
-  image_url: elem.image_url,
-  rating: elem.rating,
-  categories: elem.rating,
-  createdAt: elem.createdAt || new Date().getTime(),
-  updatedAt: elem.updatedAt || new Date().getTime()
-  };
-  this.books.push(book);
+  if (elem) {
+    let book = {
+      id: elem.id || getUniqueId(),
+      title: elem.title,
+      author: {
+        firstName: elem.author.firstName,
+        lastName: elem.author.lastName
+      },
+      cost: elem.cost,
+      image_url: elem.image_url,
+      rating: elem.rating,
+      categories: elem.rating,
+      createdAt: elem.createdAt || new Date().getTime(),
+      updatedAt: elem.updatedAt || new Date().getTime()
+    };
+    this.books.push(book);
+  }
 };
 
 Model.prototype.changePropertyBook = function(id, property, value) {
@@ -72,6 +73,12 @@ Model.prototype.changePropertyBook = function(id, property, value) {
     return elem.id === id;
   })
   this.books[requiredBook][property] = value;
+};
+
+Model.prototype.getBookById = function(id) {
+  return this.books.find((elem) => {
+    return elem.id === id;
+  })
 };
 
 Model.prototype.getData = function(typeData) {

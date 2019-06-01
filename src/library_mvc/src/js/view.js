@@ -14,12 +14,17 @@ function View() {
   this.$form = document.forms.book;
   this.$historyList = document.querySelector(".sidebar__history_list");
 
+  const delayValue = 500;
+
   this.$closePopUp.addEventListener("click", () => {
     this._showPopUp();
   });
-  this.$library.addEventListener("mouseover", () => {
+  this.$library.addEventListener("mouseover", debounce((event) => {
     this.ratingHover(event);
-  });
+  },delayValue));
+  this.$addRating.addEventListener("mouseover", debounce((event) => {
+    this.ratingHover(event);
+  },delayValue));
 }
 
 View.prototype._clearAddBookField = function() {
@@ -51,7 +56,6 @@ View.prototype._getDataAddBook = function() {
 View.prototype._showAddBookRating = function(value) {
   this.$addBookRating.setAttribute("value", value);
 };
-
 
 View.prototype._showPopUp = function() {
   this.$containerPopUp.classList.toggle("show");
@@ -173,5 +177,20 @@ View.prototype.ratingHover = function(event) {
     for (let j = 0; j <= dataElem - 1; j++) {
       event.target.parentElement.children[j].classList.add("active_star");
     }
+  }
+
+  View.prototype.getRating = function (value) {
+    if (event.target.classList.contains("rating_star")) {
+      let rating = event.target.getAttribute("data-elem");
+      let id = +event.target.parentElement.parentElement.getAttribute("id");
+      for (let i = 0; i < 5; i++) {
+        event.target.parentElement.children[i].classList.remove("active_star");
+      }
+      for (let j = 0; j <= rating - 1; j++) {
+        event.target.parentElement.children[j].classList.add("active_star");
+      }
+      return {id: id, rating: rating};
+    }
+    return false;
   }
 };
