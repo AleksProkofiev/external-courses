@@ -69,10 +69,10 @@ Model.prototype.createBook = function(elem) {
 };
 
 Model.prototype.changePropertyBook = function(id, property, value) {
-  let requiredBook = this.books.findIndex((elem) => {
+  let requiredBook = this.books.find((elem) => {
     return elem.id === id;
   })
-  this.books[requiredBook][property] = value;
+  requiredBook[property] = value;
 };
 
 Model.prototype.getBookById = function(id) {
